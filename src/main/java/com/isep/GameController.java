@@ -241,9 +241,6 @@ public class GameController {
             rotatedTable.add(rotatedList.toArray(new Boolean[rotatedList.size()]));
         }
 
-        Boolean[][] table = rotatedTable.toArray(new Boolean[rotatedTable.size()][rotatedTable.get(0).length]);
-
-
         return rotatedTable.toArray(new Boolean[rotatedTable.size()][rotatedTable.get(0).length]);
     }
 
