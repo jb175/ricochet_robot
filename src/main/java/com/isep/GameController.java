@@ -146,9 +146,19 @@ public class GameController {
             }
         }
 
-        //on stock les variables finales
-        this.walls = new Boolean[][][] {boardMaker(quarters[0]), boardMaker(quarters[1])};
+        /*on inverse les 2 derniers quarts car la rotation s'éffectue quart par quart dans le sens horaire et l'enregistrement finale ce fait car par quart colonne par collone et ligne par ligne
+            avant : 0 3     aprés : 0 1
+                    1 2             2 3
+        */
+        for (int index = 0; index < 2; index++) {
+            Boolean[][] quart = quarters[index][1];
+            quarters[index][1] = quarters[index][3];
+            quarters[index][3] = quarters[index][2];
+            quarters[index][2] = quart;
+        }//*/
 
+        //on stock les variables finales
+        this.walls = new Boolean[][][] {boardMaker(quarters[0], true), boardMaker(quarters[1], false)};
     }
 
     @FXML
@@ -246,18 +256,22 @@ public class GameController {
 
 
 
-    private Boolean[][] boardMaker(Boolean[][][] quarters) {
+    private Boolean[][] boardMaker(Boolean[][][] quarters, Boolean cond) { //cond sert à supprimer les doublons pour les valeurs centrales ce qui entraine sinon un décalage
         ArrayList<Boolean[]> board = new ArrayList<>(); //on initialise une arraylist pour contenir toutese les valeurs
         for (int quarterColumn = 0; quarterColumn < 2; quarterColumn++) { //pour chaque colonne de tableaux
             for (int c = 0; c < quarters[2*quarterColumn].length; c++) { //pour chaque colonne
 
-                ArrayList<Boolean> column = new ArrayList<>(); //on initialise une colonne avec une arraylist pour contenir toute une des colonne finales
-                for (int quarterLine = 0; quarterLine < 2; quarterLine++) { //pour chaque ligne de tableaux
-                    for (int l = 0; l < quarters[2*quarterColumn][c].length; l++) { //pour chaque ligne
-                        column.add(quarters[2*quarterColumn+quarterLine][c][l]);
+                if (!(quarterColumn==1 && c==0 && !cond)) {
+                    ArrayList<Boolean> column = new ArrayList<>(); //on initialise une colonne avec une arraylist pour contenir toute une des colonne finales
+                    for (int quarterLine = 0; quarterLine < 2; quarterLine++) { //pour chaque ligne de tableaux
+                        for (int l = 0; l < quarters[2*quarterColumn][c].length; l++) { //pour chaque ligne
+                            if (!(quarterLine==1 && l==0 && cond)) {
+                                column.add(quarters[2*quarterColumn+quarterLine][c][l]);
+                            }
+                        }
                     }
+                    board.add(column.toArray(new Boolean[column.size()])); //convertion de l'arraylist en array et ajout dans le tableau général
                 }
-                board.add(column.toArray(new Boolean[column.size()])); //convertion de l'arraylist en array et ajout dans le tableau général
 
             }
         }
