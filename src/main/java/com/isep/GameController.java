@@ -135,6 +135,61 @@ public class GameController {
             //////////////////////////////////////////////
 
             //à faire
+            int i = 0;
+            while (i<numberOfCornersPerQuarter) { //pour chaque angle
+                //on recherche des positions qui marchent
+                ArrayList<Integer> positions = new ArrayList<>();
+                while (true) {
+                    int Hcolumn = (int)(Math.random()*((quarterBoardSize[1]-1)-2))+2;
+                    int Hrow = (int)(Math.random()*(quarterBoardSize[0]-2))+2;
+                    if (Boolean.TRUE.equals(verif("horizontal", quarterHorizontalWallTable, Hcolumn, Hrow))) {
+                        System.out.println("colonne : " + Hcolumn);
+                        System.out.println("ligne : " + Hrow);
+                        int number = (int)(Math.random()*4);
+                        switch (number) {
+                            case 0 :
+                                int Vcolum = Hcolumn;
+                                int Vrow = Hrow;
+                                if (Vrow<7 && Boolean.TRUE.equals(verif("vertical", quarterVerticalWallTable, Vcolum, Vrow))) {
+                                    quarterHorizontalWallTable[Hcolumn][Hrow] = true;
+                                    quarterVerticalWallTable[Vcolum][Vrow] = true;
+                                    i++;
+                                }
+                                break;
+                            case 1 :
+                                Vcolum = Hcolumn+1;
+                                Vrow = Hrow;
+                                if (Vrow<7 && Boolean.TRUE.equals(verif("vertical", quarterVerticalWallTable, Vcolum, Vrow))) {
+                                    quarterHorizontalWallTable[Hcolumn][Hrow] = true;
+                                    quarterVerticalWallTable[Vcolum][Vrow] = true;
+                                    i++;
+                                }
+                                break;
+                            case 2 :
+                                Vcolum = Hcolumn;
+                                Vrow = Hrow-1;
+                                if (Vrow<7 && Boolean.TRUE.equals(verif("vertical", quarterVerticalWallTable, Vcolum, Vrow))) {
+                                    quarterHorizontalWallTable[Hcolumn][Hrow] = true;
+                                    quarterVerticalWallTable[Vcolum][Vrow] = true;
+                                    i++;
+                                }
+                                break;
+                            case 3 :
+                                Vcolum = Hcolumn+1;
+                                Vrow = Hrow-1;
+                                System.out.println(Vcolum);
+                                System.out.println(Vrow);
+                                if (Vrow<7 && Boolean.TRUE.equals(verif("vertical", quarterVerticalWallTable, Vcolum, Vrow))) {
+                                    quarterHorizontalWallTable[Hcolumn][Hrow] = true;
+                                    quarterVerticalWallTable[Vcolum][Vrow] = true;
+                                    i++;
+                                }
+                                break;
+                        }
+                        break;
+                    }
+                }
+            }
 
             if (k%2 == 0) { //stockage conventionel
                 quarters[0][k] = tableRotate(quarterHorizontalWallTable, k);
@@ -253,7 +308,23 @@ public class GameController {
         return rotatedTable.toArray(new Boolean[rotatedTable.size()][rotatedTable.get(0).length]);
     }
 
-
+    private Boolean verif (String type, Boolean[][] matrix, int column, int row) {
+        switch (type) {
+            case "horizontal":
+                if (!matrix[column][row] && !matrix[column+1][row] && !matrix[column-1][row]) {
+                    return true;
+                } else {
+                    return false;
+                }
+            case "vertical" :
+                if (!matrix[column][row] && !matrix[column][row+1] && !matrix[column][row-1]) {
+                    return true;
+                } else {
+                    return false;
+                }
+        }
+        return null;
+    }
 
     private Boolean[][] boardMaker(Boolean[][][] quarters, Boolean cond) { //cond sert à supprimer les doublons pour les valeurs centrales ce qui entraine sinon un décalage
         ArrayList<Boolean[]> board = new ArrayList<>(); //on initialise une arraylist pour contenir toutese les valeurs
