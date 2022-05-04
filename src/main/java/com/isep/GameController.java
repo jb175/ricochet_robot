@@ -125,6 +125,8 @@ public class GameController {
                 System.out.println();
             }
         }
+
+        
         
         
         //convertion
@@ -240,5 +242,23 @@ public class GameController {
         System.out.println();
 
         return rotatedTable.toArray(new Boolean[rotatedTable.size()][rotatedTable.get(0).length]);
+    }
+
+    private Boolean[][] boardMaker(Boolean[][][] quarters) {
+        ArrayList<Boolean[]> board = new ArrayList<>(); //on initialise une arraylist pour contenir toutese les valeurs
+        for (int quarterColumn = 0; quarterColumn < 2; quarterColumn++) { //pour chaque colonne de tableaux
+            for (int c = 0; c < quarters[2*quarterColumn].length; c++) { //pour chaque colonne
+
+                ArrayList<Boolean> column = new ArrayList<>(); //on initialise une colonne avec une arraylist pour contenir toute une des colonne finales
+                for (int quarterLine = 0; quarterLine < 2; quarterLine++) { //pour chaque ligne de tableaux
+                    for (int l = 0; l < quarters[2*quarterColumn][c].length; l++) { //pour chaque ligne
+                        column.add(quarters[2*quarterColumn+quarterLine][c][l]);
+                    }
+                }
+                board.add(column.toArray(new Boolean[column.size()])); //convertion de l'arraylist en array et ajout dans le tableau général
+
+            }
+        }
+        return board.toArray(new Boolean[board.size()][board.get(0).length]); //convertion de l'arraylist en array et retour de son tableau
     }
 }
