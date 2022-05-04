@@ -28,6 +28,7 @@ public class GameController {
         
         //initialisation des variables de génération
         int wallAgainstBorder = 1;
+        int numberOfCornersPerQuarter = 4;
 
         //on crée les colonnes et lignes de l'affichage
         for (int i = 0; i < 2*quarterBoardSize[0]; i++) {
@@ -109,7 +110,7 @@ public class GameController {
                 ArrayList<Integer> positions = new ArrayList<>();
                 int counter = 0;
                 while (positions.size()<wallAgainstBorder) {
-                    int position = (int)(Math.random()*(quarterBoardSize[0]-2))+2;
+                    int position = (int)(Math.random()*(quarterBoardSize[1]-2))+2;
                     if (!(positions.contains(position) || positions.contains(position-1) || positions.contains(position+1))) {
                         positions.add(position);
                     }
@@ -134,8 +135,6 @@ public class GameController {
             //////////////////////////////////////////////
 
             //à faire
-
-
 
             if (k%2 == 0) { //stockage conventionel
                 quarters[0][k] = tableRotate(quarterHorizontalWallTable, k);
