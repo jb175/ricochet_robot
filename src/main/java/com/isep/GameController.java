@@ -1,7 +1,5 @@
 package com.isep;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import javafx.fxml.FXML;
@@ -20,17 +18,18 @@ public class GameController {
     private Boolean[][][] walls;
 
     @FXML
-    private void initialize() throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+    private void initialize() throws Exception {
         initializeBoard();
         updateGrid();
     }
 
     @FXML
-    private void initializeBoard() throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+    private void initializeBoard() throws Exception {
         
-        //initialisation variable
+        //initialisation des variables de génération
         int wallAgainstBorder = 1;
 
+        //on crée les colonnes et lignes de l'affichage
         for (int i = 0; i < 2*quarterBoardSize[0]; i++) {
             ColumnConstraints column = new ColumnConstraints();
             column.setPrefWidth(cellSize);
@@ -42,6 +41,7 @@ public class GameController {
             grid.getRowConstraints().add(row);
         }
         
+        //on leur ajoute  des espace pour stocker leurs images
         for (int i = 0; i < 2*quarterBoardSize[0]; i++) {
             for (int j = 0; j < 2*quarterBoardSize[1]; j++) {
                 grid.add(new Group(), i, j);
@@ -53,98 +53,102 @@ public class GameController {
 
 
         //wall
-        ArrayList<ArrayList<ArrayList<Boolean>>> WallList = new ArrayList<>();
-        for (int index = 0; index < 2; index++) {
-            ArrayList<ArrayList<Boolean>> table = new ArrayList<>();
-            for (int i = 0; i < 2*quarterBoardSize[0]+index; i++) {
-                table.add(new ArrayList<>());
-            }
-            WallList.add(table);
-        }
-
-        
+        Boolean[][][][] quarters = new Boolean[2][4][][];
         for (int k = 0; k < 4; k++) { //pour chaque quart
-            ArrayList<ArrayList<ArrayList<Boolean>>> QuarterWallList = new ArrayList<>();
-            for (int index = 0; index < 2; index++) {
-                ArrayList<ArrayList<Boolean>> table = new ArrayList<>();
-                for (int i = 0; i < quarterBoardSize[0]+index; i++) {
-                    ArrayList<Boolean> list = new ArrayList<>();
-                    for (int j = 0; j < quarterBoardSize[1]+1-index; j++) {
-                        if (index==0) { //horizontal
-                            if (j==0) { //border
-                                list.add(true);
-                            } else if(j==quarterBoardSize[1]-1 && i==quarterBoardSize[1]-1) { //central border
-                                list.add(true);
-                            } else { //otherwise
-                                list.add(false);
-                            }
-                        } else { //vertical
-                            if (i==0) { //border
-                                list.add(true);
-                            } else if(j==quarterBoardSize[0]-1 && i==quarterBoardSize[0]-1) { //central border
-                                list.add(true);
-                            } else { //otherwise
-                                list.add(false);
-                            }
-                        }
+
+            ///////////////////////////////////////////////
+            // initialisation des bordures et des listes //
+            ///////////////////////////////////////////////
+
+            //horizontal
+            ArrayList<Boolean[]> quarterHorizontalWallTableList = new ArrayList<>();
+            for (int c = 0; c < quarterBoardSize[0]; c++) {
+
+                ArrayList<Boolean> column = new ArrayList<>();
+                for (int l = 0; l < quarterBoardSize[1]+1; l++) {
+                    if (l==0) { //border
+                        column.add(true);
+                    } else if(l==quarterBoardSize[1]-1 && c==quarterBoardSize[1]-1) { //central border
+                        column.add(true);
+                    } else { //otherwise
+                        column.add(false);
                     }
-                    table.add(list);
                 }
-                QuarterWallList.add(table);
+                quarterHorizontalWallTableList.add(column.toArray(new Boolean[column.size()]));
+
             }
-            for (int index = 0; index < 2; index++) {
+            Boolean[][] quarterHorizontalWallTable = quarterHorizontalWallTableList.toArray(new Boolean[quarterHorizontalWallTableList.size()][quarterHorizontalWallTableList.get(0).length]);
+
+            //vertical
+            ArrayList<Boolean[]> quarterVerticalWallTableList = new ArrayList<>();
+            for (int c = 0; c < quarterBoardSize[0]+1; c++) {
+
+                ArrayList<Boolean> column = new ArrayList<>();
+                for (int l = 0; l < quarterBoardSize[1]; l++) {
+                    if (c==0) { //border
+                        column.add(true);
+                    } else if(l==quarterBoardSize[0]-1 && c==quarterBoardSize[0]-1) { //central border
+                        column.add(true);
+                    } else { //otherwise
+                        column.add(false);
+                    }
+                }
+                quarterVerticalWallTableList.add(column.toArray(new Boolean[column.size()]));
+
+            }
+            Boolean[][] quarterVerticalWallTable = quarterVerticalWallTableList.toArray(new Boolean[quarterVerticalWallTableList.size()][quarterVerticalWallTableList.get(0).length]);
+
+            
+            //////////////////////////////////////
+            // initialisation des mur des cotés //
+            //////////////////////////////////////
+
+            for (int index = 0; index < 2; index++) { //pour chaque coté
+
+                //on recherche des positions qui marchent
                 ArrayList<Integer> positions = new ArrayList<>();
+                int counter = 0;
                 while (positions.size()<wallAgainstBorder) {
-                    int position = (int)(Math.random()*(quarterBoardSize[0]-2));
+                    int position = (int)(Math.random()*(quarterBoardSize[0]-2))+2;
                     if (!(positions.contains(position) || positions.contains(position-1) || positions.contains(position+1))) {
                         positions.add(position);
+                    }
+                    if (counter == 100) {
+                        throw new Exception("Erreur lors de l'initialisation du plateau:\nil n'y a pas assez de place pour placer les murs");
+                    } else {
+                        counter++;
                     }
                 }
 
                 for (int position : positions) {
-                    if (index==0) {
-                        QuarterWallList.get(index).get(0).set(position+2, true);
-                    } else {
-                        QuarterWallList.get(index).get(position+2).set(0, true);
+                    if (index==0) { //horizontal
+                        quarterHorizontalWallTable[0][position] = true;
+                    } else { //vertical
+                        quarterVerticalWallTable[position][0] = true;
                     }
                 }
             }
             
-            for (int index = 0; index < 2; index++) {
-                //convertion
-                ArrayList<Boolean[]> t = new ArrayList<>();
-                for (int i = 0; i < QuarterWallList.get(index).size(); i++) {
-                    ArrayList<Boolean> l = new ArrayList<>();
-                    for (int j = 0; j < QuarterWallList.get(index).get(0).size(); j++) {
-                        l.add(QuarterWallList.get(index).get(i).get(j));
-                    }
-                    t.add(l.toArray(new Boolean[l.size()]));
-                }
+            //////////////////////////////////////////////
+            // initialisation des mur d'angles centraux //
+            //////////////////////////////////////////////
 
-                Boolean[][] turn = tableRotate(t.toArray(new Boolean[QuarterWallList.get(index).size()][QuarterWallList.get(index).get(0).size()]), k);
-                System.out.println();
+            //à faire
+
+
+
+            if (k%2 == 0) { //stockage conventionel
+                quarters[0][k] = tableRotate(quarterHorizontalWallTable, k);
+                quarters[1][k] = tableRotate(quarterVerticalWallTable, k);
+            } else { //le retournement par 1 et 3 inverse les 2 listes (8*9 deviens 9*8 ...)
+                quarters[0][k] = tableRotate(quarterVerticalWallTable, k);
+                quarters[1][k] = tableRotate(quarterHorizontalWallTable, k);
             }
         }
 
-        
-        
-        
-        //convertion
-        ArrayList<Boolean[][]> WallListFinal = new ArrayList<>();
-        for (int index = 0; index < 2; index++) {
-            ArrayList<Boolean[]> table = new ArrayList<>();
-            for (int i = 0; i < 2*quarterBoardSize[0]+index; i++) {
-                ArrayList<Boolean> list = new ArrayList<>();
-                for (int j = 0; j < 2*quarterBoardSize[1]+1-index; j++) {
-                    list.add(WallList.get(index).get(i).get(j));
-                }
-                table.add(list.toArray(new Boolean[list.size()]));
-            }
-            WallListFinal.add(table.toArray(new Boolean[table.size()][table.get(0).length]));
-        }
-        walls = WallListFinal.toArray(new Boolean[WallListFinal.size()][WallListFinal.get(0).length][WallListFinal.get(0)[0].length]);
+        //on stock les variables finales
+        this.walls = new Boolean[][][] {boardMaker(quarters[0]), boardMaker(quarters[1])};
 
-        System.out.println();
     }
 
     @FXML
@@ -239,10 +243,11 @@ public class GameController {
 
         Boolean[][] table = rotatedTable.toArray(new Boolean[rotatedTable.size()][rotatedTable.get(0).length]);
 
-        System.out.println();
 
         return rotatedTable.toArray(new Boolean[rotatedTable.size()][rotatedTable.get(0).length]);
     }
+
+
 
     private Boolean[][] boardMaker(Boolean[][][] quarters) {
         ArrayList<Boolean[]> board = new ArrayList<>(); //on initialise une arraylist pour contenir toutese les valeurs
