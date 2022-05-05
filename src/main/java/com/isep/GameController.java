@@ -168,13 +168,13 @@ public class GameController {
                                             break;
 
                                         case 2: //en bas a droite
-                                            angles.add(new Position(2*quarterBoardSize[1]-Hcolumn-1, 2*quarterBoardSize[0]-Hrow-1));
+                                            angles.add(new Position(2*quarterBoardSize[1]-Hcolumn, 2*quarterBoardSize[0]-Hrow));
                                             System.out.println("Position de l'angle N° " + (i+1));
                                             System.out.println(angles.get(numberOfCornersPerQuarter*k+i).getPosition());
                                             break;
 
                                         case 3: //en bas a gauche
-                                            angles.add(new Position(Hrow-1, 2*quarterBoardSize[0]-Hcolumn-1));
+                                            angles.add(new Position(Hrow, 2*quarterBoardSize[0]-Hcolumn));
                                             System.out.println("Position de l'angle N° " + (i+1));
                                             System.out.println(angles.get(numberOfCornersPerQuarter*k+i).getPosition());
                                             break;
@@ -202,13 +202,13 @@ public class GameController {
                                             break;
 
                                         case 2: //en bas a droite
-                                            angles.add(new Position(2*quarterBoardSize[1]-Hcolumn-1, 2*quarterBoardSize[0]-Hrow-1));
+                                            angles.add(new Position(2*quarterBoardSize[1]-Hcolumn, 2*quarterBoardSize[0]-Hrow));
                                             System.out.println("Position de l'angle N° " + (i+1));
                                             System.out.println(angles.get(numberOfCornersPerQuarter*k+i).getPosition());
                                             break;
 
                                         case 3: //en bas a gauche
-                                            angles.add(new Position(Hrow-1, 2*quarterBoardSize[0]-Hcolumn-1));
+                                            angles.add(new Position(Hrow, 2*quarterBoardSize[0]-Hcolumn));
                                             System.out.println("Position de l'angle N° " + (i+1));
                                             System.out.println(angles.get(numberOfCornersPerQuarter*k+i).getPosition());
                                             break;
@@ -235,13 +235,13 @@ public class GameController {
                                             break;
 
                                         case 2: //en bas a droite
-                                            angles.add(new Position(2*quarterBoardSize[1]-Hcolumn-1, 2*quarterBoardSize[0]-Hrow-1));
+                                            angles.add(new Position(2*quarterBoardSize[1]-Hcolumn, 2*quarterBoardSize[0]-Hrow));
                                             System.out.println("Position de l'angle N° " + (i+1));
                                             System.out.println(angles.get(numberOfCornersPerQuarter*k+i).getPosition());
                                             break;
 
                                         case 3: //en bas a gauche
-                                            angles.add(new Position(Hrow-1, 2*quarterBoardSize[0]-Hcolumn-1));
+                                            angles.add(new Position(Hrow, 2*quarterBoardSize[0]-Hcolumn));
                                             System.out.println("Position de l'angle N° " + (i+1));
                                             System.out.println(angles.get(numberOfCornersPerQuarter*k+i).getPosition());
                                             break;
@@ -269,13 +269,13 @@ public class GameController {
                                             break;
 
                                         case 2: //en bas a droite
-                                            angles.add(new Position(2*quarterBoardSize[1]-Hcolumn-1, 2*quarterBoardSize[0]-Hrow-1));
+                                            angles.add(new Position(2*quarterBoardSize[1]-Hcolumn, 2*quarterBoardSize[0]-Hrow));
                                             System.out.println("Position de l'angle N° " + (i+1));
                                             System.out.println(angles.get(numberOfCornersPerQuarter*k+i).getPosition());
                                             break;
 
                                         case 3: //en bas a gauche
-                                            angles.add(new Position(Hrow-1, 2*quarterBoardSize[0]-Hcolumn-1));
+                                            angles.add(new Position(Hrow, 2*quarterBoardSize[0]-Hcolumn));
                                             System.out.println("Position de l'angle N° " + (i+1));
                                             System.out.println(angles.get(numberOfCornersPerQuarter*k+i).getPosition());
                                             break;
