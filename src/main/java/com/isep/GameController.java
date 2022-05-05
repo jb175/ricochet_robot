@@ -201,7 +201,6 @@ public class GameController {
                                             angles.add(new Position(Hcolumn, Hrow-1));
                                             System.out.println("Position de l'angle N° " + (i+1));
                                             System.out.println(angles.get(i).getPosition());
-
                                         case 1: //en haut a droite
 
                                         case 2: //en bas a droite

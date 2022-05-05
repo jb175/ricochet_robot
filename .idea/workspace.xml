@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65999d4a-0650-4c85-9665-3cecc835cfcd" name="Changes" comment="r">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/isep/Position.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/isep/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/isep/GameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/isep/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/isep/GameController.class" afterDir="false" />
     </list>
@@ -82,7 +83,7 @@
       <workItem from="1651685921894" duration="739000" />
       <workItem from="1651686744568" duration="6730000" />
       <workItem from="1651693625650" duration="8189000" />
-      <workItem from="1651745948775" duration="8175000" />
+      <workItem from="1651745948775" duration="8693000" />
     </task>
     <task id="LOCAL-00001" summary="r">
       <created>1651693525375</created>
@@ -105,7 +106,21 @@
       <option name="project" value="LOCAL" />
       <updated>1651759628307</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="r">
+      <created>1651763664941</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1651763664941</updated>
+    </task>
+    <task id="LOCAL-00005" summary="r">
+      <created>1651763691704</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1651763691704</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,7 +131,24 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
