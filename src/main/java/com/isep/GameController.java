@@ -47,8 +47,10 @@ public class GameController {
             for (int j = 0; j < 2*quarterBoardSize[1]; j++) {
                 grid.add(new Group(), i, j);
                 addImage(i, j);//background
-                addImage(i, j);//wallcolumn
-                addImage(i, j);//wallrow
+                addImage(i, j);//wallcolumn1
+                addImage(i, j);//wallcolumn2
+                addImage(i, j);//wallrow1
+                addImage(i, j);//wallrow2
             }
         }
 
@@ -236,7 +238,7 @@ public class GameController {
                         getCell(i, j, 1).setImage(new Image(getClass().getResourceAsStream("/img/TopWall.png")));
                     } catch (Exception e) {}
                     try {
-                        getCell(i, j-1, 1).setImage(new Image(getClass().getResourceAsStream("/img/BottomWall.png")));
+                        getCell(i, j-1, 2).setImage(new Image(getClass().getResourceAsStream("/img/BottomWall.png")));
                     } catch (Exception e) {}
                 }
             }
@@ -246,10 +248,10 @@ public class GameController {
             for (int j = 0; j < walls[1][i].length; j++) {
                 if(walls[1][i][j]) {
                     try {
-                        getCell(i, j, 2).setImage(new Image(getClass().getResourceAsStream("/img/LeftWall.png")));
+                        getCell(i, j, 3).setImage(new Image(getClass().getResourceAsStream("/img/LeftWall.png")));
                     } catch (Exception e) {}
                     try {
-                        getCell(i-1, j, 2).setImage(new Image(getClass().getResourceAsStream("/img/RightWall.png")));
+                        getCell(i-1, j, 4).setImage(new Image(getClass().getResourceAsStream("/img/RightWall.png")));
                     } catch (Exception e) {}
                 }
             }
