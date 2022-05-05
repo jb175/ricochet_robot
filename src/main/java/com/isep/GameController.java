@@ -142,7 +142,7 @@ public class GameController {
                 while (true) {
                     int Hcolumn = (int)(Math.random()*((quarterBoardSize[1]-1)-2))+2;
                     int Hrow = (int)(Math.random()*(quarterBoardSize[0]-2))+2;
-                    if (Boolean.TRUE.equals(verif("horizontal", quarterHorizontalWallTable, Hcolumn, Hrow))) {
+                    if (Boolean.TRUE.equals(horizontalVerif(quarterHorizontalWallTable, Hcolumn, Hrow, quarterVerticalWallTable))) {
                         System.out.println("colonne : " + Hcolumn);
                         System.out.println("ligne : " + Hrow);
                         int number = (int)(Math.random()*4);
@@ -150,7 +150,7 @@ public class GameController {
                             case 0 :
                                 int Vcolum = Hcolumn;
                                 int Vrow = Hrow;
-                                if (Vrow<7 && Boolean.TRUE.equals(verif("vertical", quarterVerticalWallTable, Vcolum, Vrow))) {
+                                if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(quarterVerticalWallTable, Vcolum, Vrow, quarterHorizontalWallTable, Hcolumn, Hrow,0))) {
                                     quarterHorizontalWallTable[Hcolumn][Hrow] = true;
                                     quarterVerticalWallTable[Vcolum][Vrow] = true;
                                     i++;
@@ -159,7 +159,7 @@ public class GameController {
                             case 1 :
                                 Vcolum = Hcolumn+1;
                                 Vrow = Hrow;
-                                if (Vrow<7 && Boolean.TRUE.equals(verif("vertical", quarterVerticalWallTable, Vcolum, Vrow))) {
+                                if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(quarterVerticalWallTable, Vcolum, Vrow, quarterHorizontalWallTable, Hcolumn, Hrow,1))) {
                                     quarterHorizontalWallTable[Hcolumn][Hrow] = true;
                                     quarterVerticalWallTable[Vcolum][Vrow] = true;
                                     i++;
@@ -168,7 +168,7 @@ public class GameController {
                             case 2 :
                                 Vcolum = Hcolumn;
                                 Vrow = Hrow-1;
-                                if (Vrow<7 && Boolean.TRUE.equals(verif("vertical", quarterVerticalWallTable, Vcolum, Vrow))) {
+                                if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(quarterVerticalWallTable, Vcolum, Vrow, quarterHorizontalWallTable, Hcolumn, Hrow,2))) {
                                     quarterHorizontalWallTable[Hcolumn][Hrow] = true;
                                     quarterVerticalWallTable[Vcolum][Vrow] = true;
                                     i++;
@@ -179,7 +179,7 @@ public class GameController {
                                 Vrow = Hrow-1;
                                 System.out.println(Vcolum);
                                 System.out.println(Vrow);
-                                if (Vrow<7 && Boolean.TRUE.equals(verif("vertical", quarterVerticalWallTable, Vcolum, Vrow))) {
+                                if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(quarterVerticalWallTable, Vcolum, Vrow, quarterHorizontalWallTable, Hcolumn, Hrow,3))) {
                                     quarterHorizontalWallTable[Hcolumn][Hrow] = true;
                                     quarterVerticalWallTable[Vcolum][Vrow] = true;
                                     i++;
@@ -308,16 +308,45 @@ public class GameController {
         return rotatedTable.toArray(new Boolean[rotatedTable.size()][rotatedTable.get(0).length]);
     }
 
-    private Boolean verif (String type, Boolean[][] matrix, int column, int row) {
-        switch (type) {
-            case "horizontal":
-                if (!matrix[column][row] && !matrix[column+1][row] && !matrix[column-1][row]) {
+    private Boolean horizontalVerif(Boolean[][] matrixH, int columnH, int rowH, Boolean[][] matrixV) {
+        if (!matrixH[columnH][rowH] && !matrixH[columnH+1][rowH] && !matrixH[columnH-1][rowH]) {
+            System.out.println("verif");
+            if (!matrixV[columnH][rowH] && !matrixV[columnH+1][rowH] && !matrixV[columnH][rowH-1] && !matrixV[columnH+1][rowH-1]) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    private Boolean verticalVerif(Boolean[][] matrixV, int columnV, int rowV, Boolean[][] matrixH, int columnH, int rowH, int nb) {
+        switch (nb) {
+            case 0:
+                if (!matrixH[columnH][rowH+1] && !matrixH[columnH-1][rowH+1] && !matrixV[columnV][rowV] && !matrixV[columnV][rowV+1] && !matrixV[columnV][rowV-1]) {
+                    System.out.println("verif");
                     return true;
                 } else {
                     return false;
                 }
-            case "vertical" :
-                if (!matrix[column][row] && !matrix[column][row+1] && !matrix[column][row-1]) {
+            case 1 :
+                if (!matrixH[columnH][rowH+1] && !matrixH[columnH+1][rowH+1] && !matrixV[columnV][rowV] && !matrixV[columnV][rowV+1] && !matrixV[columnV][rowV-1]) {
+                    System.out.println("verif");
+                    return true;
+                } else {
+                    return false;
+                }
+            case 2 :
+                if (!matrixH[columnH][rowH-1] && !matrixH[columnH-1][rowH-1] &&!matrixV[columnV][rowV] && !matrixV[columnV][rowV+1] && !matrixV[columnV][rowV-1]) {
+                    System.out.println("verif");
+                    return true;
+                } else {
+                    return false;
+                }
+            case 3 :
+                if (!matrixH[columnH][rowH-1] && !matrixH[columnH+1][rowH-1] && !matrixV[columnV][rowV] && !matrixV[columnV][rowV+1] && !matrixV[columnV][rowV-1]) {
+                    System.out.println("verif");
                     return true;
                 } else {
                     return false;
