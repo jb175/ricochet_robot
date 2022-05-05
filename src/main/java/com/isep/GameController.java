@@ -54,7 +54,9 @@ public class GameController {
 
 
         //wall
+
         Boolean[][][][] quarters = new Boolean[2][4][][];
+        ArrayList<Position> angles = new ArrayList<>();
         for (int k = 0; k < 4; k++) { //pour chaque quart
 
             ///////////////////////////////////////////////
@@ -138,13 +140,10 @@ public class GameController {
             int i = 0;
             while (i<numberOfCornersPerQuarter) { //pour chaque angle
                 //on recherche des positions qui marchent
-                ArrayList<Integer> positions = new ArrayList<>();
                 while (true) {
                     int Hcolumn = (int)(Math.random()*((quarterBoardSize[1]-1)-2))+2;
                     int Hrow = (int)(Math.random()*(quarterBoardSize[0]-2))+2;
                     if (Boolean.TRUE.equals(horizontalVerif(quarterHorizontalWallTable, Hcolumn, Hrow, quarterVerticalWallTable))) {
-                        System.out.println("colonne : " + Hcolumn);
-                        System.out.println("ligne : " + Hrow);
                         int number = (int)(Math.random()*4);
                         switch (number) {
                             case 0 :
@@ -153,6 +152,18 @@ public class GameController {
                                 if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(quarterVerticalWallTable, Vcolum, Vrow, quarterHorizontalWallTable, Hcolumn, Hrow,0))) {
                                     quarterHorizontalWallTable[Hcolumn][Hrow] = true;
                                     quarterVerticalWallTable[Vcolum][Vrow] = true;
+                                    switch (k) {
+                                        case 0 : //en haut a gauche
+                                            angles.add(new Position(Hcolumn, Hrow));
+                                            System.out.println("Position de l'angle N° " + (i+1));
+                                            System.out.println(angles.get(i).getPosition());
+
+                                        case 1: //en haut a droite
+
+                                        case 2: //en bas a droite
+
+                                        case 3: //en bas a gauche
+                                    }
                                     i++;
                                 }
                                 break;
@@ -162,6 +173,18 @@ public class GameController {
                                 if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(quarterVerticalWallTable, Vcolum, Vrow, quarterHorizontalWallTable, Hcolumn, Hrow,1))) {
                                     quarterHorizontalWallTable[Hcolumn][Hrow] = true;
                                     quarterVerticalWallTable[Vcolum][Vrow] = true;
+                                    switch (k) {
+                                        case 0 : //en haut a gauche
+                                            angles.add(new Position(Hcolumn, Hrow));
+                                            System.out.println("Position de l'angle N° " + (i+1));
+                                            System.out.println(angles.get(i).getPosition());
+
+                                        case 1: //en haut a droite
+
+                                        case 2: //en bas a droite
+
+                                        case 3: //en bas a gauche
+                                    }
                                     i++;
                                 }
                                 break;
@@ -171,17 +194,39 @@ public class GameController {
                                 if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(quarterVerticalWallTable, Vcolum, Vrow, quarterHorizontalWallTable, Hcolumn, Hrow,2))) {
                                     quarterHorizontalWallTable[Hcolumn][Hrow] = true;
                                     quarterVerticalWallTable[Vcolum][Vrow] = true;
+                                    switch (k) {
+                                        case 0 : //en haut a gauche
+                                            angles.add(new Position(Hcolumn, Hrow-1));
+                                            System.out.println("Position de l'angle N° " + (i+1));
+                                            System.out.println(angles.get(i).getPosition());
+
+                                        case 1: //en haut a droite
+
+                                        case 2: //en bas a droite
+
+                                        case 3: //en bas a gauche
+                                    }
                                     i++;
                                 }
                                 break;
                             case 3 :
                                 Vcolum = Hcolumn+1;
                                 Vrow = Hrow-1;
-                                System.out.println(Vcolum);
-                                System.out.println(Vrow);
                                 if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(quarterVerticalWallTable, Vcolum, Vrow, quarterHorizontalWallTable, Hcolumn, Hrow,3))) {
                                     quarterHorizontalWallTable[Hcolumn][Hrow] = true;
                                     quarterVerticalWallTable[Vcolum][Vrow] = true;
+                                    switch (k) {
+                                        case 0 : //en haut a gauche
+                                            angles.add(new Position(Hcolumn, Hrow-1));
+                                            System.out.println("Position de l'angle N° " + (i+1));
+                                            System.out.println(angles.get(i).getPosition());
+
+                                        case 1: //en haut a droite
+
+                                        case 2: //en bas a droite
+
+                                        case 3: //en bas a gauche
+                                    }
                                     i++;
                                 }
                                 break;
@@ -310,7 +355,6 @@ public class GameController {
 
     private Boolean horizontalVerif(Boolean[][] matrixH, int columnH, int rowH, Boolean[][] matrixV) {
         if (!matrixH[columnH][rowH] && !matrixH[columnH+1][rowH] && !matrixH[columnH-1][rowH]) {
-            System.out.println("verif");
             if (!matrixV[columnH][rowH] && !matrixV[columnH+1][rowH] && !matrixV[columnH][rowH-1] && !matrixV[columnH+1][rowH-1]) {
                 return true;
             } else {
@@ -325,28 +369,24 @@ public class GameController {
         switch (nb) {
             case 0:
                 if (!matrixH[columnH][rowH+1] && !matrixH[columnH-1][rowH+1] && !matrixV[columnV][rowV] && !matrixV[columnV][rowV+1] && !matrixV[columnV][rowV-1]) {
-                    System.out.println("verif");
                     return true;
                 } else {
                     return false;
                 }
             case 1 :
                 if (!matrixH[columnH][rowH+1] && !matrixH[columnH+1][rowH+1] && !matrixV[columnV][rowV] && !matrixV[columnV][rowV+1] && !matrixV[columnV][rowV-1]) {
-                    System.out.println("verif");
                     return true;
                 } else {
                     return false;
                 }
             case 2 :
                 if (!matrixH[columnH][rowH-1] && !matrixH[columnH-1][rowH-1] &&!matrixV[columnV][rowV] && !matrixV[columnV][rowV+1] && !matrixV[columnV][rowV-1]) {
-                    System.out.println("verif");
                     return true;
                 } else {
                     return false;
                 }
             case 3 :
                 if (!matrixH[columnH][rowH-1] && !matrixH[columnH+1][rowH-1] && !matrixV[columnV][rowV] && !matrixV[columnV][rowV+1] && !matrixV[columnV][rowV-1]) {
-                    System.out.println("verif");
                     return true;
                 } else {
                     return false;
