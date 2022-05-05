@@ -26,11 +26,11 @@ public class GameController {
     @FXML
     private void initializeBoard() throws Exception {
         
-        //initialisation des variables de génération
-        int wallAgainstBorder = 1;
-        int numberOfCornersPerQuarter = 4;
+        // initialisation des variables de génération
+        int wallAgainstBorder = 1; // nombre de murs contre les parois de chaque carré du plateau
+        int numberOfCornersPerQuarter = 4; // nombre d'angles (deux murs) de chaque carré du plateau
 
-        //on crée les colonnes et lignes de l'affichage
+        // on crée les colonnes et lignes de l'affichage
         for (int i = 0; i < 2*quarterBoardSize[0]; i++) {
             ColumnConstraints column = new ColumnConstraints();
             column.setPrefWidth(cellSize);
@@ -42,30 +42,29 @@ public class GameController {
             grid.getRowConstraints().add(row);
         }
         
-        //on leur ajoute  des espace pour stocker leurs images
+        // on leur ajoute des espaces pour stocker leurs images
         for (int i = 0; i < 2*quarterBoardSize[0]; i++) {
             for (int j = 0; j < 2*quarterBoardSize[1]; j++) {
                 grid.add(new Group(), i, j);
-                addImage(i, j);//background
-                addImage(i, j);//wallcolumn1
-                addImage(i, j);//wallcolumn2
-                addImage(i, j);//wallrow1
-                addImage(i, j);//wallrow2
+                addImage(i, j); // background
+                addImage(i, j); // wallcolumn1
+                addImage(i, j); // wallcolumn2
+                addImage(i, j); // wallrow1
+                addImage(i, j); // wallrow2
             }
         }
 
-
-        //wall
-
+        // on crée les murs du plateau
         Boolean[][][][] quarters = new Boolean[2][4][][];
-        ArrayList<Position> angles = new ArrayList<>();
-        for (int k = 0; k < 4; k++) { //pour chaque quart
+        ArrayList<Position> angles = new ArrayList<>(); // on stocke les positions des angles du plateau
 
-            ///////////////////////////////////////////////
-            // initialisation des bordures et des listes //
-            ///////////////////////////////////////////////
+        for (int k = 0; k < 4; k++) { //pour chaque carré
 
-            //horizontal
+            /////////////////////////////////////////////
+            // initialisation des parois et des listes //
+            /////////////////////////////////////////////
+
+            // horizontal
             ArrayList<Boolean[]> quarterHorizontalWallTableList = new ArrayList<>();
             for (int c = 0; c < quarterBoardSize[0]; c++) {
 
@@ -80,11 +79,10 @@ public class GameController {
                     }
                 }
                 quarterHorizontalWallTableList.add(column.toArray(new Boolean[column.size()]));
-
             }
             Boolean[][] quarterHorizontalWallTable = quarterHorizontalWallTableList.toArray(new Boolean[quarterHorizontalWallTableList.size()][quarterHorizontalWallTableList.get(0).length]);
 
-            //vertical
+            // vertical
             ArrayList<Boolean[]> quarterVerticalWallTableList = new ArrayList<>();
             for (int c = 0; c < quarterBoardSize[0]+1; c++) {
 
@@ -99,18 +97,17 @@ public class GameController {
                     }
                 }
                 quarterVerticalWallTableList.add(column.toArray(new Boolean[column.size()]));
-
             }
             Boolean[][] quarterVerticalWallTable = quarterVerticalWallTableList.toArray(new Boolean[quarterVerticalWallTableList.size()][quarterVerticalWallTableList.get(0).length]);
 
             
-            //////////////////////////////////////
-            // initialisation des mur des cotés //
-            //////////////////////////////////////
+            ///////////////////////////////////////////////
+            // initialisation des murs contre les parois //
+            ///////////////////////////////////////////////
 
-            for (int index = 0; index < 2; index++) { //pour chaque coté
+            for (int index = 0; index < 2; index++) { // pour les deux côtés du carré
 
-                //on recherche des positions qui marchent
+                // on recherche des positions compatibles
                 ArrayList<Integer> positions = new ArrayList<>();
                 int counter = 0;
                 while (positions.size()<wallAgainstBorder) {
@@ -126,125 +123,170 @@ public class GameController {
                 }
 
                 for (int position : positions) {
-                    if (index==0) { //horizontal
+                    if (index==0) { // horizontal
                         quarterHorizontalWallTable[0][position] = true;
-                    } else { //vertical
+                    } else { // vertical
                         quarterVerticalWallTable[position][0] = true;
                     }
                 }
             }
             
-            //////////////////////////////////////////////
-            // initialisation des mur d'angles centraux //
-            //////////////////////////////////////////////
+            ///////////////////////////////
+            // initialisation des angles //
+            ///////////////////////////////
 
-            //à faire
             int i = 0;
             while (i<numberOfCornersPerQuarter) { //pour chaque angle
-                //on recherche des positions qui marchent
                 while (true) {
+                    // horizontal
                     int Hcolumn = (int)(Math.random()*((quarterBoardSize[1]-1)-2))+2;
                     int Hrow = (int)(Math.random()*(quarterBoardSize[0]-2))+2;
+                    // si le mur est compatible
                     if (Boolean.TRUE.equals(horizontalVerif(quarterHorizontalWallTable, Hcolumn, Hrow, quarterVerticalWallTable))) {
-                        int number = (int)(Math.random()*4);
-                        switch (number) {
+                        // vertical
+                        int random = (int)(Math.random()*4);
+                        switch (random) {
+
+                            /*
+                            ---
+                            |
+                            */
                             case 0 :
                                 int Vcolum = Hcolumn;
                                 int Vrow = Hrow;
+                                // si le mur est compatible
                                 if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(quarterVerticalWallTable, Vcolum, Vrow, quarterHorizontalWallTable, Hcolumn, Hrow,0))) {
+                                    // mise à jour des murs du carré
                                     quarterHorizontalWallTable[Hcolumn][Hrow] = true;
                                     quarterVerticalWallTable[Vcolum][Vrow] = true;
                                     switch (k) {
-                                        case 0 : //en haut a gauche
+                                        case 0 : // carré en haut à gauche
+                                            // mise à jour de la position de l'angle
                                             angles.add(new Position(Hcolumn, Hrow));
                                             break;
 
-                                        case 1: //en haut a droite
+                                        case 1: // carré en haut à droite
+                                            // mise à jour de la position de l'angle
                                             angles.add(new Position(2*quarterBoardSize[1]-Hrow-1, Hcolumn));
                                             break;
 
-                                        case 2: //en bas a droite
+                                        case 2: // carré en bas à droite
+                                            // mise à jour de la position de l'angle
                                             angles.add(new Position(2*quarterBoardSize[1]-Hcolumn-1, 2*quarterBoardSize[0]-Hrow-1));
                                             break;
 
-                                        case 3: //en bas a gauche
+                                        case 3: // carré en bas à gauche
+                                            // mise à jour de la position de l'angle
                                             angles.add(new Position(Hrow, 2*quarterBoardSize[0]-Hcolumn-1));
                                             break;
                                     }
                                     i++;
                                 }
                                 break;
+
+                            /*
+                            ---
+                              |
+                            */
                             case 1 :
                                 Vcolum = Hcolumn+1;
                                 Vrow = Hrow;
+                                // si le mur est compatible
                                 if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(quarterVerticalWallTable, Vcolum, Vrow, quarterHorizontalWallTable, Hcolumn, Hrow,1))) {
+                                    // mise à jour des murs du carré
                                     quarterHorizontalWallTable[Hcolumn][Hrow] = true;
                                     quarterVerticalWallTable[Vcolum][Vrow] = true;
                                     switch (k) {
-                                        case 0 : //en haut a gauche
+                                        case 0 : // carré en haut à gauche
+                                            // mise à jour de la position de l'angle
                                             angles.add(new Position(Hcolumn, Hrow));
                                             break;
 
-                                        case 1: //en haut a droite
+                                        case 1: // carré en haut à droite
+                                            // mise à jour de la position de l'angle
                                             angles.add(new Position(2*quarterBoardSize[1]-Hrow-1, Hcolumn));
                                             break;
 
-                                        case 2: //en bas a droite
+                                        case 2: // carré en bas à droite
+                                            // mise à jour de la position de l'angle
                                             angles.add(new Position(2*quarterBoardSize[1]-Hcolumn-1, 2*quarterBoardSize[0]-Hrow-1));
                                             break;
 
-                                        case 3: //en bas a gauche
+                                        case 3: // carré en bas à gauche
+                                            // mise à jour de la position de l'angle
                                             angles.add(new Position(Hrow, 2*quarterBoardSize[0]-Hcolumn-1));
                                             break;
                                     }
                                     i++;
                                 }
                                 break;
+
+                            /*
+                            |
+                            ---
+                            */
                             case 2 :
                                 Vcolum = Hcolumn;
                                 Vrow = Hrow-1;
+                                // si le mur est compatible
                                 if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(quarterVerticalWallTable, Vcolum, Vrow, quarterHorizontalWallTable, Hcolumn, Hrow,2))) {
+                                    // mise à jour des murs du carré
                                     quarterHorizontalWallTable[Hcolumn][Hrow] = true;
                                     quarterVerticalWallTable[Vcolum][Vrow] = true;
                                     switch (k) {
-                                        case 0 : //en haut a gauche
+                                        case 0 : // carré en haut à gauche
+                                            // mise à jour de la position de l'angle
                                             angles.add(new Position(Hcolumn, Hrow-1));
                                             break;
-                                        case 1: //en haut a droite
+                                        case 1: // carré en haut à droite
+                                            // mise à jour de la position de l'angle
                                             angles.add(new Position(2*quarterBoardSize[1]-Hrow, Hcolumn));
                                             break;
 
-                                        case 2: //en bas a droite
+                                        case 2: // carré en bas à droite
+                                            // mise à jour de la position de l'angle
                                             angles.add(new Position(2*quarterBoardSize[1]-Hcolumn-1, 2*quarterBoardSize[0]-Hrow));
                                             break;
 
-                                        case 3: //en bas a gauche
+                                        case 3: // carré en bas à gauche
+                                            // mise à jour de la position de l'angle
                                             angles.add(new Position(Hrow-1, 2*quarterBoardSize[0]-Hcolumn-1));
                                             break;
                                     }
                                     i++;
                                 }
                                 break;
+
+                            /*
+                              |
+                            ---
+                            */
                             case 3 :
                                 Vcolum = Hcolumn+1;
                                 Vrow = Hrow-1;
+                                // si le mur est compatible
                                 if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(quarterVerticalWallTable, Vcolum, Vrow, quarterHorizontalWallTable, Hcolumn, Hrow,3))) {
+                                    // mise à jour des murs du carré
                                     quarterHorizontalWallTable[Hcolumn][Hrow] = true;
                                     quarterVerticalWallTable[Vcolum][Vrow] = true;
                                     switch (k) {
-                                        case 0 : //en haut a gauche
+                                        case 0 : // carré en haut à gauche
+                                            // mise à jour de la position de l'angle
                                             angles.add(new Position(Hcolumn, Hrow-1));
                                             break;
 
-                                        case 1: //en haut a droite
+                                        case 1: // carré en haut à droite
+                                            // mise à jour de la position de l'angle
                                             angles.add(new Position(2*quarterBoardSize[1]-Hrow, Hcolumn));
                                             break;
 
-                                        case 2: //en bas a droite
+                                        case 2: // carré en bas à droite
+                                            // mise à jour de la position de l'angle
                                             angles.add(new Position(2*quarterBoardSize[1]-Hcolumn-1, 2*quarterBoardSize[0]-Hrow));
                                             break;
 
-                                        case 3: //en bas a gauche
+                                        case 3: // carré en bas à gauche
+                                            // mise à jour de la position de l'angle
                                             angles.add(new Position(Hrow-1, 2*quarterBoardSize[0]-Hcolumn-1));
                                             break;
                                     }
@@ -257,33 +299,33 @@ public class GameController {
                 }
             }
 
-            if (k%2 == 0) { //stockage conventionel
+            if (k%2 == 0) { // stockage conventionel
                 quarters[0][k] = tableRotate(quarterHorizontalWallTable, k);
                 quarters[1][k] = tableRotate(quarterVerticalWallTable, k);
-            } else { //le retournement par 1 et 3 inverse les 2 listes (8*9 deviens 9*8 ...)
+            } else { // le retournement par 1 et 3 inverse les 2 listes (8*9 deviens 9*8 ...)
                 quarters[0][k] = tableRotate(quarterVerticalWallTable, k);
                 quarters[1][k] = tableRotate(quarterHorizontalWallTable, k);
             }
         }
 
-        /*on inverse les 2 derniers quarts car la rotation s'éffectue quart par quart dans le sens horaire et l'enregistrement finale ce fait car par quart colonne par collone et ligne par ligne
-            avant : 0 3     aprés : 0 1
-                    1 2             2 3
+        /* on inverse les 2 derniers quarts car la rotation s'éffectue quart par quart dans le sens horaire et l'enregistrement finale ce fait car par quart colonne par collone et ligne par ligne
+            avant : 0 3     après : 0 1
+                    1 2             3 2
         */
         for (int index = 0; index < 2; index++) {
             Boolean[][] quart = quarters[index][1];
             quarters[index][1] = quarters[index][3];
             quarters[index][3] = quarters[index][2];
             quarters[index][2] = quart;
-        }//*/
+        }
 
-        //on stock les variables finales
+        // on stocke les variables finales
         this.walls = new Boolean[][][] {boardMaker(quarters[0], true), boardMaker(quarters[1], false)};
     }
 
     @FXML
     private void updateGrid() {
-        //background
+        // background
         for (int i = 0; i < 2*quarterBoardSize[0]; i++) {
             for (int j = 0; j < 2*quarterBoardSize[1]; j++) {
                 getCell(i, j, 0).setImage(new Image(getClass().getResourceAsStream("/img/BoardEmpty.png")));

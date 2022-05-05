@@ -7,8 +7,6 @@
     <list default="true" id="65999d4a-0650-4c85-9665-3cecc835cfcd" name="Changes" comment="r">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/isep/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/isep/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/isep/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/isep/GameController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +83,8 @@
       <workItem from="1651693625650" duration="8189000" />
       <workItem from="1651745948775" duration="8693000" />
       <workItem from="1651765825379" duration="2774000" />
+      <workItem from="1651770281793" duration="43000" />
+      <workItem from="1651772215909" duration="3052000" />
     </task>
     <task id="LOCAL-00001" summary="r">
       <created>1651693525375</created>
@@ -121,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651763691704</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="r">
+      <created>1651770320639</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1651770320639</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
