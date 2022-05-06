@@ -18,7 +18,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        stage.getIcons().add(new Image("file:src/main/resources/img/BoardEmpty.png"));
+        stage.getIcons().add(new Image("file:src/main/resources/img/Board.png"));
         stage.setTitle("RicochetRobot");
         scene = new Scene(loadFXML("game"), 2*GameController.quarterBoardSize[0]*GameController.cellSize+20, 2*GameController.quarterBoardSize[1]*GameController.cellSize+20);
         stage.setScene(scene);
