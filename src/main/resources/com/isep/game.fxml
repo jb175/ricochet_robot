@@ -9,7 +9,8 @@
       <GridPane fx:id="grid">
          <padding>
             <Insets left="10.0" top="10.0" />
-         </padding></GridPane>
+         </padding>
+      </GridPane>
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

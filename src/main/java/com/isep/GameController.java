@@ -1,6 +1,7 @@
 package com.isep;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -16,6 +17,7 @@ public class GameController {
     protected static int[] quarterBoardSize = {8,8};
     protected static int cellSize = 40;
     private Boolean[][][] walls;
+    private Position[] angles;
 
     @FXML
     private void initialize() throws Exception {
@@ -46,11 +48,13 @@ public class GameController {
         for (int i = 0; i < 2*quarterBoardSize[0]; i++) {
             for (int j = 0; j < 2*quarterBoardSize[1]; j++) {
                 grid.add(new Group(), i, j);
-                addImage(i, j);//background
-                addImage(i, j);//wallcolumn1
-                addImage(i, j);//wallcolumn2
-                addImage(i, j);//wallrow1
-                addImage(i, j);//wallrow2
+                addImage(i, j);//background 0
+                addImage(i, j);//wallcolumn1 1
+                addImage(i, j);//wallcolumn2 2
+                addImage(i, j);//wallrow1 3
+                addImage(i, j);//wallrow2 4
+                addImage(i, j);//objective 5
+                addImage(i, j);//robot 6
             }
         }
 
@@ -256,6 +260,8 @@ public class GameController {
                     }
                 }
             }
+            Collections.shuffle(angles); //pour avoir les objectifs dans des ordres différents
+            this.angles = angles.toArray(new Position[angles.size()]);
 
             if (k%2 == 0) { //stockage conventionel
                 quarters[0][k] = tableRotate(quarterHorizontalWallTable, k);
@@ -286,7 +292,7 @@ public class GameController {
         //background
         for (int i = 0; i < 2*quarterBoardSize[0]; i++) {
             for (int j = 0; j < 2*quarterBoardSize[1]; j++) {
-                getCell(i, j, 0).setImage(new Image(getClass().getResourceAsStream("/img/BoardEmpty.png")));
+                getCell(i, j, 0).setImage(new Image(getClass().getResourceAsStream("/img/Board.png")));
                 if ((i == quarterBoardSize[0]-1 || i == quarterBoardSize[0]) && (j == quarterBoardSize[1]-1 || j == quarterBoardSize[1])) {
                     getCell(i, j, 0).setImage(null);
                 }
@@ -320,6 +326,41 @@ public class GameController {
                 }
             }
         }
+
+        String[] objectiveColor = {"Red", "Green", "Blue", "Yellow"};
+        String[] objectiveShape = {"Circle", "Star", "Triangle", "Hexagon"};
+        for (int i=0; i<this.angles.length; i++) {
+            getCell(this.angles[i].getColumn(), this.angles[i].getRow(), 0).setImage(new Image(getClass().getResourceAsStream("/img/BoardEmpty.png")));
+            getCell(this.angles[i].getColumn(), this.angles[i].getRow(), 5).setImage(new Image(getClass().getResourceAsStream("/img/Objective"+objectiveColor[i%4]+objectiveShape[i/4]+".png")));
+        }
+
+        ArrayList<Position> positions = new ArrayList<>();
+        int overflow = 0;
+        while (positions.size()<objectiveColor.length && overflow <= 100) {
+            overflow++;
+            int c = (int)(Math.random()*2*GameController.quarterBoardSize[0]);
+            int r = (int)(Math.random()*2*GameController.quarterBoardSize[1]);
+            boolean validPosition = true;
+
+            //carré central
+            if((c==GameController.quarterBoardSize[0]-1 || c==GameController.quarterBoardSize[0])&&(r==GameController.quarterBoardSize[1]-1 || r==GameController.quarterBoardSize[1])) {
+                validPosition = false;
+            }
+            //position déja utilisée par un robot
+            for (Position alreadyUsedPosition : positions) {
+                if(alreadyUsedPosition.getColumn() == c || (alreadyUsedPosition.getRow() == r)) {
+                    validPosition = false;
+                }
+            }
+            if(validPosition) {
+                positions.add(new Position(c, r));
+            }
+            System.out.println(c+" "+r);
+        }
+        for (int i=0; i<objectiveColor.length; i++) {
+            getCell(positions.get(i).getColumn(), positions.get(i).getRow(), 6).setImage(new Image(getClass().getResourceAsStream("/img/"+objectiveColor[i]+"Robot.png")));
+        }
+
     }
 
     //accéder à une cas à partir de la grille et des coordonées
