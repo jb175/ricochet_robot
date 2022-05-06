@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65999d4a-0650-4c85-9665-3cecc835cfcd" name="Changes" comment="r">
+    <list default="true" id="65999d4a-0650-4c85-9665-3cecc835cfcd" name="Changes" comment="Detection colonne et ligne">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/isep/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/isep/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/isep/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/isep/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/isep/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/isep/GameController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/isep/Position.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/isep/model/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/isep/model/Direction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +20,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -46,11 +48,16 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TP4" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\alexa\OneDrive\Documents\ISEP\A1\Algorithmie &amp; programmation\TPs\Codes\Ricochet Robots\src\main\java\com\isep" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -58,7 +65,7 @@
       <module name="ricochet_robot" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.isep.*" />
+          <option name="PATTERN" value="com.isep.model.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -87,7 +94,7 @@
       <workItem from="1651765825379" duration="2774000" />
       <workItem from="1651770281793" duration="43000" />
       <workItem from="1651772215909" duration="3052000" />
-      <workItem from="1651829253611" duration="973000" />
+      <workItem from="1651829253611" duration="2276000" />
     </task>
     <task id="LOCAL-00001" summary="r">
       <created>1651693525375</created>
@@ -131,7 +138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651770320639</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Detection colonne et ligne">
+      <created>1651830385059</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1651830385059</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,6 +181,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="r" />
-    <option name="LAST_COMMIT_MESSAGE" value="r" />
+    <MESSAGE value="Detection colonne et ligne" />
+    <option name="LAST_COMMIT_MESSAGE" value="Detection colonne et ligne" />
   </component>
 </project>

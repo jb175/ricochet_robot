@@ -4,4 +4,6 @@ module com.isep {
 
     opens com.isep to javafx.fxml;
     exports com.isep;
+    exports com.isep.model;
+    opens com.isep.model to javafx.fxml;
 }

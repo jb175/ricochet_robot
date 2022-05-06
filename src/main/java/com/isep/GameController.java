@@ -3,12 +3,11 @@ package com.isep;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import javafx.event.EventHandler;
+import com.isep.model.Position;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
