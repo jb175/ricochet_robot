@@ -7,6 +7,8 @@
     <list default="true" id="65999d4a-0650-4c85-9665-3cecc835cfcd" name="Changes" comment="r">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/isep/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/isep/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/isep/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/isep/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/isep/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/isep/GameController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +87,7 @@
       <workItem from="1651765825379" duration="2774000" />
       <workItem from="1651770281793" duration="43000" />
       <workItem from="1651772215909" duration="3052000" />
+      <workItem from="1651829253611" duration="973000" />
     </task>
     <task id="LOCAL-00001" summary="r">
       <created>1651693525375</created>

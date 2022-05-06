@@ -3,10 +3,12 @@ package com.isep;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -355,7 +357,6 @@ public class GameController {
             if(validPosition) {
                 positions.add(new Position(c, r));
             }
-            System.out.println(c+" "+r);
         }
         for (int i=0; i<objectiveColor.length; i++) {
             getCell(positions.get(i).getColumn(), positions.get(i).getRow(), 6).setImage(new Image(getClass().getResourceAsStream("/img/"+objectiveColor[i]+"Robot.png")));
@@ -370,6 +371,10 @@ public class GameController {
 
     private void addImage(int column, int row) {
         ImageView imageView = new ImageView();
+        imageView.setOnMouseClicked
+                (event -> {
+                    System.out.println("Colonne : " + column + " | Ligne : " + row);
+                });
         imageView.setFitHeight(40);
         imageView.setFitWidth(40);
         this.getGroup(column, row).getChildren().add(imageView);
