@@ -3,6 +3,7 @@ package com.isep;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.isep.model.Plateau;
 import com.isep.model.Position;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -15,10 +16,8 @@ import javafx.scene.layout.RowConstraints;
 public class GameController {
     @FXML
     private GridPane grid;
-    protected static int[] quarterBoardSize = {8,8};
-    protected static int cellSize = 40;
-    private Boolean[][][] walls;
-    private Position[] angles;
+
+    protected static Plateau plateau = new Plateau(new int[]{8, 8}, 40, 1, 4, new String[]{"Red", "Green", "Blue", "Yellow"}, new String[]{"Circle", "Star", "Triangle", "Hexagon"});
 
     @FXML
     private void initialize() throws Exception {
@@ -28,26 +27,22 @@ public class GameController {
 
     @FXML
     private void initializeBoard() throws Exception {
-        
-        //initialisation des variables de génération
-        int wallAgainstBorder = 1;
-        int numberOfCornersPerQuarter = 4;
 
         //on crée les colonnes et lignes de l'affichage
-        for (int i = 0; i < 2*quarterBoardSize[0]; i++) {
+        for (int i = 0; i < 2*plateau.getQuarterBoardSize()[0]; i++) {
             ColumnConstraints column = new ColumnConstraints();
-            column.setPrefWidth(cellSize);
+            column.setPrefWidth(plateau.getCellSize());
             grid.getColumnConstraints().add(column);
         }
-        for (int j = 0; j < 2*quarterBoardSize[1]; j++) {
+        for (int j = 0; j < 2*plateau.getQuarterBoardSize()[1]; j++) {
             RowConstraints row = new RowConstraints();
-            row.setPrefHeight(cellSize);
+            row.setPrefHeight(plateau.getCellSize());
             grid.getRowConstraints().add(row);
         }
         
         //on leur ajoute  des espace pour stocker leurs images
-        for (int i = 0; i < 2*quarterBoardSize[0]; i++) {
-            for (int j = 0; j < 2*quarterBoardSize[1]; j++) {
+        for (int i = 0; i < 2*plateau.getQuarterBoardSize()[0]; i++) {
+            for (int j = 0; j < 2*plateau.getQuarterBoardSize()[1]; j++) {
                 grid.add(new Group(), i, j);
                 addImage(i, j);//background 0
                 addImage(i, j);//wallcolumn1 1
@@ -62,7 +57,7 @@ public class GameController {
 
         //wall
 
-        Boolean[][][][] quarters = new Boolean[2][4][][];
+        plateau.setQuarters(new Boolean[2][4][][]);
         ArrayList<Position> angles = new ArrayList<>();
         for (int k = 0; k < 4; k++) { //pour chaque quart
 
@@ -72,13 +67,13 @@ public class GameController {
 
             //horizontal
             ArrayList<Boolean[]> quarterHorizontalWallTableList = new ArrayList<>();
-            for (int c = 0; c < quarterBoardSize[0]; c++) {
+            for (int c = 0; c < plateau.getQuarterBoardSize()[0]; c++) {
 
                 ArrayList<Boolean> column = new ArrayList<>();
-                for (int l = 0; l < quarterBoardSize[1]+1; l++) {
+                for (int l = 0; l < plateau.getQuarterBoardSize()[1]+1; l++) {
                     if (l==0) { //border
                         column.add(true);
-                    } else if(l==quarterBoardSize[1]-1 && c==quarterBoardSize[1]-1) { //central border
+                    } else if(l==plateau.getQuarterBoardSize()[1]-1 && c==plateau.getQuarterBoardSize()[1]-1) { //central border
                         column.add(true);
                     } else { //otherwise
                         column.add(false);
@@ -87,17 +82,17 @@ public class GameController {
                 quarterHorizontalWallTableList.add(column.toArray(new Boolean[column.size()]));
 
             }
-            Boolean[][] quarterHorizontalWallTable = quarterHorizontalWallTableList.toArray(new Boolean[quarterHorizontalWallTableList.size()][quarterHorizontalWallTableList.get(0).length]);
+            plateau.setQuarterHorizontalWallTable(quarterHorizontalWallTableList.toArray(new Boolean[quarterHorizontalWallTableList.size()][quarterHorizontalWallTableList.get(0).length]));
 
             //vertical
             ArrayList<Boolean[]> quarterVerticalWallTableList = new ArrayList<>();
-            for (int c = 0; c < quarterBoardSize[0]+1; c++) {
+            for (int c = 0; c < plateau.getQuarterBoardSize()[0]+1; c++) {
 
                 ArrayList<Boolean> column = new ArrayList<>();
-                for (int l = 0; l < quarterBoardSize[1]; l++) {
+                for (int l = 0; l < plateau.getQuarterBoardSize()[1]; l++) {
                     if (c==0) { //border
                         column.add(true);
-                    } else if(l==quarterBoardSize[0]-1 && c==quarterBoardSize[0]-1) { //central border
+                    } else if(l==plateau.getQuarterBoardSize()[0]-1 && c==plateau.getQuarterBoardSize()[0]-1) { //central border
                         column.add(true);
                     } else { //otherwise
                         column.add(false);
@@ -106,7 +101,7 @@ public class GameController {
                 quarterVerticalWallTableList.add(column.toArray(new Boolean[column.size()]));
 
             }
-            Boolean[][] quarterVerticalWallTable = quarterVerticalWallTableList.toArray(new Boolean[quarterVerticalWallTableList.size()][quarterVerticalWallTableList.get(0).length]);
+            plateau.setQuarterVerticalWallTable(quarterVerticalWallTableList.toArray(new Boolean[quarterVerticalWallTableList.size()][quarterVerticalWallTableList.get(0).length]));
 
             
             //////////////////////////////////////
@@ -118,8 +113,8 @@ public class GameController {
                 //on recherche des positions qui marchent
                 ArrayList<Integer> positions = new ArrayList<>();
                 int counter = 0;
-                while (positions.size()<wallAgainstBorder) {
-                    int position = (int)(Math.random()*(quarterBoardSize[1]-2))+2;
+                while (positions.size()<plateau.getWallAgainstBorderPerQuarter()) {
+                    int position = (int)(Math.random()*(plateau.getQuarterBoardSize()[1]-2))+2;
                     if (!(positions.contains(position) || positions.contains(position-1) || positions.contains(position+1))) {
                         positions.add(position);
                     }
@@ -132,9 +127,9 @@ public class GameController {
 
                 for (int position : positions) {
                     if (index==0) { //horizontal
-                        quarterHorizontalWallTable[0][position] = true;
+                        plateau.getQuarterHorizontalWallTable()[0][position] = true;
                     } else { //vertical
-                        quarterVerticalWallTable[position][0] = true;
+                        plateau.getQuarterVerticalWallTable()[position][0] = true;
                     }
                 }
             }
@@ -145,35 +140,35 @@ public class GameController {
 
             //à faire
             int i = 0;
-            while (i<numberOfCornersPerQuarter) { //pour chaque angle
+            while (i<plateau.getNumberOfCornersPerQuarter()) { //pour chaque angle
                 //on recherche des positions qui marchent
                 while (true) {
-                    int Hcolumn = (int)(Math.random()*((quarterBoardSize[1]-1)-2))+2;
-                    int Hrow = (int)(Math.random()*(quarterBoardSize[0]-2))+2;
-                    if (Boolean.TRUE.equals(horizontalVerif(quarterHorizontalWallTable, Hcolumn, Hrow, quarterVerticalWallTable))) {
+                    int Hcolumn = (int)(Math.random()*((plateau.getQuarterBoardSize()[1]-1)-2))+2;
+                    int Hrow = (int)(Math.random()*(plateau.getQuarterBoardSize()[0]-2))+2;
+                    if (Boolean.TRUE.equals(horizontalVerif(plateau.getQuarterHorizontalWallTable(), Hcolumn, Hrow, plateau.getQuarterVerticalWallTable()))) {
                         int number = (int)(Math.random()*4);
                         switch (number) {
                             case 0 :
                                 int Vcolum = Hcolumn;
                                 int Vrow = Hrow;
-                                if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(quarterVerticalWallTable, Vcolum, Vrow, quarterHorizontalWallTable, Hcolumn, Hrow,0))) {
-                                    quarterHorizontalWallTable[Hcolumn][Hrow] = true;
-                                    quarterVerticalWallTable[Vcolum][Vrow] = true;
+                                if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(plateau.getQuarterVerticalWallTable(), Vcolum, Vrow, plateau.getQuarterHorizontalWallTable(), Hcolumn, Hrow,0))) {
+                                    plateau.getQuarterHorizontalWallTable()[Hcolumn][Hrow] = true;
+                                    plateau.getQuarterVerticalWallTable()[Vcolum][Vrow] = true;
                                     switch (k) {
                                         case 0 : //en haut a gauche
                                             angles.add(new Position(Hcolumn, Hrow));
                                             break;
 
                                         case 1: //en haut a droite
-                                            angles.add(new Position(2*quarterBoardSize[1]-Hrow-1, Hcolumn));
+                                            angles.add(new Position(2*plateau.getQuarterBoardSize()[1]-Hrow-1, Hcolumn));
                                             break;
 
                                         case 2: //en bas a droite
-                                            angles.add(new Position(2*quarterBoardSize[1]-Hcolumn-1, 2*quarterBoardSize[0]-Hrow-1));
+                                            angles.add(new Position(2*plateau.getQuarterBoardSize()[1]-Hcolumn-1, 2*plateau.getQuarterBoardSize()[0]-Hrow-1));
                                             break;
 
                                         case 3: //en bas a gauche
-                                            angles.add(new Position(Hrow, 2*quarterBoardSize[0]-Hcolumn-1));
+                                            angles.add(new Position(Hrow, 2*plateau.getQuarterBoardSize()[0]-Hcolumn-1));
                                             break;
                                     }
                                     i++;
@@ -182,24 +177,24 @@ public class GameController {
                             case 1 :
                                 Vcolum = Hcolumn+1;
                                 Vrow = Hrow;
-                                if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(quarterVerticalWallTable, Vcolum, Vrow, quarterHorizontalWallTable, Hcolumn, Hrow,1))) {
-                                    quarterHorizontalWallTable[Hcolumn][Hrow] = true;
-                                    quarterVerticalWallTable[Vcolum][Vrow] = true;
+                                if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(plateau.getQuarterVerticalWallTable(), Vcolum, Vrow, plateau.getQuarterHorizontalWallTable(), Hcolumn, Hrow,1))) {
+                                    plateau.getQuarterHorizontalWallTable()[Hcolumn][Hrow] = true;
+                                    plateau.getQuarterVerticalWallTable()[Vcolum][Vrow] = true;
                                     switch (k) {
                                         case 0 : //en haut a gauche
                                             angles.add(new Position(Hcolumn, Hrow));
                                             break;
 
                                         case 1: //en haut a droite
-                                            angles.add(new Position(2*quarterBoardSize[1]-Hrow-1, Hcolumn));
+                                            angles.add(new Position(2*plateau.getQuarterBoardSize()[1]-Hrow-1, Hcolumn));
                                             break;
 
                                         case 2: //en bas a droite
-                                            angles.add(new Position(2*quarterBoardSize[1]-Hcolumn-1, 2*quarterBoardSize[0]-Hrow-1));
+                                            angles.add(new Position(2*plateau.getQuarterBoardSize()[1]-Hcolumn-1, 2*plateau.getQuarterBoardSize()[0]-Hrow-1));
                                             break;
 
                                         case 3: //en bas a gauche
-                                            angles.add(new Position(Hrow, 2*quarterBoardSize[0]-Hcolumn-1));
+                                            angles.add(new Position(Hrow, 2*plateau.getQuarterBoardSize()[0]-Hcolumn-1));
                                             break;
                                     }
                                     i++;
@@ -208,23 +203,23 @@ public class GameController {
                             case 2 :
                                 Vcolum = Hcolumn;
                                 Vrow = Hrow-1;
-                                if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(quarterVerticalWallTable, Vcolum, Vrow, quarterHorizontalWallTable, Hcolumn, Hrow,2))) {
-                                    quarterHorizontalWallTable[Hcolumn][Hrow] = true;
-                                    quarterVerticalWallTable[Vcolum][Vrow] = true;
+                                if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(plateau.getQuarterVerticalWallTable(), Vcolum, Vrow, plateau.getQuarterHorizontalWallTable(), Hcolumn, Hrow,2))) {
+                                    plateau.getQuarterHorizontalWallTable()[Hcolumn][Hrow] = true;
+                                    plateau.getQuarterVerticalWallTable()[Vcolum][Vrow] = true;
                                     switch (k) {
                                         case 0 : //en haut a gauche
                                             angles.add(new Position(Hcolumn, Hrow-1));
                                             break;
                                         case 1: //en haut a droite
-                                            angles.add(new Position(2*quarterBoardSize[1]-Hrow, Hcolumn));
+                                            angles.add(new Position(2*plateau.getQuarterBoardSize()[1]-Hrow, Hcolumn));
                                             break;
 
                                         case 2: //en bas a droite
-                                            angles.add(new Position(2*quarterBoardSize[1]-Hcolumn-1, 2*quarterBoardSize[0]-Hrow));
+                                            angles.add(new Position(2*plateau.getQuarterBoardSize()[1]-Hcolumn-1, 2*plateau.getQuarterBoardSize()[0]-Hrow));
                                             break;
 
                                         case 3: //en bas a gauche
-                                            angles.add(new Position(Hrow-1, 2*quarterBoardSize[0]-Hcolumn-1));
+                                            angles.add(new Position(Hrow-1, 2*plateau.getQuarterBoardSize()[0]-Hcolumn-1));
                                             break;
                                     }
                                     i++;
@@ -233,24 +228,24 @@ public class GameController {
                             case 3 :
                                 Vcolum = Hcolumn+1;
                                 Vrow = Hrow-1;
-                                if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(quarterVerticalWallTable, Vcolum, Vrow, quarterHorizontalWallTable, Hcolumn, Hrow,3))) {
-                                    quarterHorizontalWallTable[Hcolumn][Hrow] = true;
-                                    quarterVerticalWallTable[Vcolum][Vrow] = true;
+                                if (Vrow<7 && Boolean.TRUE.equals(verticalVerif(plateau.getQuarterVerticalWallTable(), Vcolum, Vrow, plateau.getQuarterHorizontalWallTable(), Hcolumn, Hrow,3))) {
+                                    plateau.getQuarterHorizontalWallTable()[Hcolumn][Hrow] = true;
+                                    plateau.getQuarterVerticalWallTable()[Vcolum][Vrow] = true;
                                     switch (k) {
                                         case 0 : //en haut a gauche
                                             angles.add(new Position(Hcolumn, Hrow-1));
                                             break;
 
                                         case 1: //en haut a droite
-                                            angles.add(new Position(2*quarterBoardSize[1]-Hrow, Hcolumn));
+                                            angles.add(new Position(2*plateau.getQuarterBoardSize()[1]-Hrow, Hcolumn));
                                             break;
 
                                         case 2: //en bas a droite
-                                            angles.add(new Position(2*quarterBoardSize[1]-Hcolumn-1, 2*quarterBoardSize[0]-Hrow));
+                                            angles.add(new Position(2*plateau.getQuarterBoardSize()[1]-Hcolumn-1, 2*plateau.getQuarterBoardSize()[0]-Hrow));
                                             break;
 
                                         case 3: //en bas a gauche
-                                            angles.add(new Position(Hrow-1, 2*quarterBoardSize[0]-Hcolumn-1));
+                                            angles.add(new Position(Hrow-1, 2*plateau.getQuarterBoardSize()[0]-Hcolumn-1));
                                             break;
                                     }
                                     i++;
@@ -262,14 +257,14 @@ public class GameController {
                 }
             }
             Collections.shuffle(angles); //pour avoir les objectifs dans des ordres différents
-            this.angles = angles.toArray(new Position[angles.size()]);
+            plateau.setAngles(angles.toArray(new Position[angles.size()]));
 
             if (k%2 == 0) { //stockage conventionel
-                quarters[0][k] = tableRotate(quarterHorizontalWallTable, k);
-                quarters[1][k] = tableRotate(quarterVerticalWallTable, k);
+                plateau.getQuarters()[0][k] = tableRotate(plateau.getQuarterHorizontalWallTable(), k);
+                plateau.getQuarters()[1][k] = tableRotate(plateau.getQuarterVerticalWallTable(), k);
             } else { //le retournement par 1 et 3 inverse les 2 listes (8*9 deviens 9*8 ...)
-                quarters[0][k] = tableRotate(quarterVerticalWallTable, k);
-                quarters[1][k] = tableRotate(quarterHorizontalWallTable, k);
+                plateau.getQuarters()[0][k] = tableRotate(plateau.getQuarterVerticalWallTable(), k);
+                plateau.getQuarters()[1][k] = tableRotate(plateau.getQuarterHorizontalWallTable(), k);
             }
         }
 
@@ -278,23 +273,23 @@ public class GameController {
                     1 2             2 3
         */
         for (int index = 0; index < 2; index++) {
-            Boolean[][] quart = quarters[index][1];
-            quarters[index][1] = quarters[index][3];
-            quarters[index][3] = quarters[index][2];
-            quarters[index][2] = quart;
+            Boolean[][] quart = plateau.getQuarters()[index][1];
+            plateau.getQuarters()[index][1] = plateau.getQuarters()[index][3];
+            plateau.getQuarters()[index][3] = plateau.getQuarters()[index][2];
+            plateau.getQuarters()[index][2] = quart;
         }//*/
 
         //on stock les variables finales
-        this.walls = new Boolean[][][] {boardMaker(quarters[0], true), boardMaker(quarters[1], false)};
+        plateau.setWalls(new Boolean[][][] {boardMaker(plateau.getQuarters()[0], true), boardMaker(plateau.getQuarters()[1], false)});
     }
 
     @FXML
     private void updateGrid() {
         //background
-        for (int i = 0; i < 2*quarterBoardSize[0]; i++) {
-            for (int j = 0; j < 2*quarterBoardSize[1]; j++) {
+        for (int i = 0; i < 2*plateau.getQuarterBoardSize()[0]; i++) {
+            for (int j = 0; j < 2*plateau.getQuarterBoardSize()[1]; j++) {
                 getCell(i, j, 0).setImage(new Image(getClass().getResourceAsStream("/img/Board.png")));
-                if ((i == quarterBoardSize[0]-1 || i == quarterBoardSize[0]) && (j == quarterBoardSize[1]-1 || j == quarterBoardSize[1])) {
+                if ((i == plateau.getQuarterBoardSize()[0]-1 || i == plateau.getQuarterBoardSize()[0]) && (j == plateau.getQuarterBoardSize()[1]-1 || j == plateau.getQuarterBoardSize()[1])) {
                     getCell(i, j, 0).setImage(null);
                 }
             }
@@ -302,9 +297,9 @@ public class GameController {
 
         //wall
         //on initialise les lignes horizontales sur l'image 1
-        for (int i = 0; i < walls[0].length; i++) {
-            for (int j = 0; j < walls[0][i].length; j++) {
-                if(walls[0][i][j]) {
+        for (int i = 0; i < plateau.getWalls()[0].length; i++) {
+            for (int j = 0; j < plateau.getWalls()[0][i].length; j++) {
+                if(plateau.getWalls()[0][i][j]) {
                     try {
                         getCell(i, j, 1).setImage(new Image(getClass().getResourceAsStream("/img/TopWall.png")));
                     } catch (Exception e) {}
@@ -315,9 +310,9 @@ public class GameController {
             }
         }
         //on initialise les lignes verticales sur l'image 2
-        for (int i = 0; i < walls[1].length; i++) {
-            for (int j = 0; j < walls[1][i].length; j++) {
-                if(walls[1][i][j]) {
+        for (int i = 0; i < plateau.getWalls()[1].length; i++) {
+            for (int j = 0; j < plateau.getWalls()[1][i].length; j++) {
+                if(plateau.getWalls()[1][i][j]) {
                     try {
                         getCell(i, j, 3).setImage(new Image(getClass().getResourceAsStream("/img/LeftWall.png")));
                     } catch (Exception e) {}
@@ -328,23 +323,21 @@ public class GameController {
             }
         }
 
-        String[] objectiveColor = {"Red", "Green", "Blue", "Yellow"};
-        String[] objectiveShape = {"Circle", "Star", "Triangle", "Hexagon"};
-        for (int i=0; i<this.angles.length; i++) {
-            getCell(this.angles[i].getColumn(), this.angles[i].getRow(), 0).setImage(new Image(getClass().getResourceAsStream("/img/BoardEmpty.png")));
-            getCell(this.angles[i].getColumn(), this.angles[i].getRow(), 5).setImage(new Image(getClass().getResourceAsStream("/img/Objective"+objectiveColor[i%4]+objectiveShape[i/4]+".png")));
+        for (int i=0; i<plateau.getAngles().length; i++) {
+            getCell(plateau.getAngles()[i].getColumn(), plateau.getAngles()[i].getRow(), 0).setImage(new Image(getClass().getResourceAsStream("/img/BoardEmpty.png")));
+            getCell(plateau.getAngles()[i].getColumn(), plateau.getAngles()[i].getRow(), 5).setImage(new Image(getClass().getResourceAsStream("/img/Objective"+plateau.getColors()[i%4]+plateau.getShapes()[i/4]+".png")));
         }
 
         ArrayList<Position> positions = new ArrayList<>();
         int overflow = 0;
-        while (positions.size()<objectiveColor.length && overflow <= 100) {
+        while (positions.size()<plateau.getColors().length && overflow <= 100) {
             overflow++;
-            int c = (int)(Math.random()*2*GameController.quarterBoardSize[0]);
-            int r = (int)(Math.random()*2*GameController.quarterBoardSize[1]);
+            int c = (int)(Math.random()*2*GameController.plateau.getQuarterBoardSize()[0]);
+            int r = (int)(Math.random()*2*GameController.plateau.getQuarterBoardSize()[1]);
             boolean validPosition = true;
 
             //carré central
-            if((c==GameController.quarterBoardSize[0]-1 || c==GameController.quarterBoardSize[0])&&(r==GameController.quarterBoardSize[1]-1 || r==GameController.quarterBoardSize[1])) {
+            if((c==GameController.plateau.getQuarterBoardSize()[0]-1 || c==GameController.plateau.getQuarterBoardSize()[0])&&(r==GameController.plateau.getQuarterBoardSize()[1]-1 || r==GameController.plateau.getQuarterBoardSize()[1])) {
                 validPosition = false;
             }
             //position déja utilisée par un robot
@@ -357,15 +350,15 @@ public class GameController {
                 positions.add(new Position(c, r));
             }
         }
-        for (int i=0; i<objectiveColor.length; i++) {
-            getCell(positions.get(i).getColumn(), positions.get(i).getRow(), 6).setImage(new Image(getClass().getResourceAsStream("/img/"+objectiveColor[i]+"Robot.png")));
+        for (int i=0; i<plateau.getColors().length; i++) {
+            getCell(positions.get(i).getColumn(), positions.get(i).getRow(), 6).setImage(new Image(getClass().getResourceAsStream("/img/"+plateau.getColors()[i]+"Robot.png")));
         }
 
     }
 
     //accéder à une cas à partir de la grille et des coordonées
     private ImageView getCell(int column, int row, int image) {
-        return (ImageView)((Group)this.grid.getChildren().get(column*2*quarterBoardSize[1]+row)).getChildren().get(image);
+        return (ImageView)((Group)this.grid.getChildren().get(column*2*plateau.getQuarterBoardSize()[1]+row)).getChildren().get(image);
     }
 
     private void addImage(int column, int row) {
@@ -380,7 +373,7 @@ public class GameController {
     }
 
     private Group getGroup(int column, int row) {
-        return (Group)this.grid.getChildren().get(column*2*quarterBoardSize[1]+row);
+        return (Group)this.grid.getChildren().get(column*2*plateau.getQuarterBoardSize()[1]+row);
     }
 
     private Boolean[][] tableRotate(Boolean[][] list, int rotation) {
