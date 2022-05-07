@@ -3,8 +3,10 @@ package com.isep;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.isep.model.Jeton;
 import com.isep.model.Plateau;
 import com.isep.model.Position;
+import com.isep.model.Robot;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -323,10 +325,13 @@ public class GameController {
             }
         }
 
+        ArrayList<Jeton>jetonsList = new ArrayList<>();
         for (int i=0; i<plateau.getAngles().length; i++) {
             getCell(plateau.getAngles()[i].getColumn(), plateau.getAngles()[i].getRow(), 0).setImage(new Image(getClass().getResourceAsStream("/img/BoardEmpty.png")));
+            jetonsList.add(new Jeton(plateau.getColors()[i%4], plateau.getShapes()[i/4], new Position(plateau.getAngles()[i].getColumn(), plateau.getAngles()[i].getRow())));
             getCell(plateau.getAngles()[i].getColumn(), plateau.getAngles()[i].getRow(), 5).setImage(new Image(getClass().getResourceAsStream("/img/Objective"+plateau.getColors()[i%4]+plateau.getShapes()[i/4]+".png")));
         }
+        plateau.setJetons(jetonsList.toArray(new Jeton[jetonsList.size()]));
 
         ArrayList<Position> positions = new ArrayList<>();
         int overflow = 0;
@@ -350,9 +355,12 @@ public class GameController {
                 positions.add(new Position(c, r));
             }
         }
+        ArrayList<Robot>robotsList = new ArrayList<>();
         for (int i=0; i<plateau.getColors().length; i++) {
+            robotsList.add(new Robot(plateau.getColors()[i%4], new Position(positions.get(i).getColumn(), positions.get(i).getRow())));
             getCell(positions.get(i).getColumn(), positions.get(i).getRow(), 6).setImage(new Image(getClass().getResourceAsStream("/img/"+plateau.getColors()[i]+"Robot.png")));
         }
+        plateau.setRobots(robotsList.toArray(new Robot[robotsList.size()]));
 
     }
 
