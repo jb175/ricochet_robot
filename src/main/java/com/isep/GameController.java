@@ -374,6 +374,7 @@ public class GameController {
         imageView.setOnMouseClicked
                 (event -> {
                     System.out.println("Colonne : " + column + " | Ligne : " + row);
+                    getCell(column, row, 0).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
                 });
         imageView.setFitHeight(40);
         imageView.setFitWidth(40);
