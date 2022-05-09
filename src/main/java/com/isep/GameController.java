@@ -53,6 +53,7 @@ public class GameController {
                 addImage(i, j);//wallrow2 4
                 addImage(i, j);//objective 5
                 addImage(i, j);//robot 6
+                addImage(i, j);//selection filter 7
             }
         }
 
@@ -374,7 +375,13 @@ public class GameController {
         imageView.setOnMouseClicked
                 (event -> {
                     System.out.println("Colonne : " + column + " | Ligne : " + row);
-                    getCell(column, row, 0).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
+                    for (int i = 0; i < 2*GameController.plateau.getQuarterBoardSize()[0]; i++) {
+                        for (int j = 0; j < 2*GameController.plateau.getQuarterBoardSize()[1]; j++) {
+                            getCell(i, j, 7).setImage(null);
+                        }
+                    }
+                    getCell(column, row, 7).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
+                    
                 });
         imageView.setFitHeight(40);
         imageView.setFitWidth(40);
