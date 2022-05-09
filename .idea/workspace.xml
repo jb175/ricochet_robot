@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65999d4a-0650-4c85-9665-3cecc835cfcd" name="Changes" comment="mise à jour du modèlel!">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/isep/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/isep/GameController.java" afterDir="false" />
-    </list>
+    <list default="true" id="65999d4a-0650-4c85-9665-3cecc835cfcd" name="Changes" comment="mise à jour du modèle" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -98,7 +95,7 @@
       <workItem from="1651845560396" duration="2467000" />
       <workItem from="1651956724514" duration="204000" />
       <workItem from="1652085318608" duration="276000" />
-      <workItem from="1652086341445" duration="311000" />
+      <workItem from="1652086341445" duration="641000" />
     </task>
     <task id="LOCAL-00001" summary="r">
       <created>1651693525375</created>
@@ -177,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652085335582</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="mise à jour du modèlel!">
+      <created>1652086817383</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1652086817383</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,6 +219,7 @@
     <MESSAGE value="r" />
     <MESSAGE value="Detection colonne et ligne" />
     <MESSAGE value="mise à jour du modèle" />
-    <option name="LAST_COMMIT_MESSAGE" value="mise à jour du modèle" />
+    <MESSAGE value="mise à jour du modèlel!" />
+    <option name="LAST_COMMIT_MESSAGE" value="mise à jour du modèlel!" />
   </component>
 </project>
