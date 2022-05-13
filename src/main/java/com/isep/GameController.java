@@ -392,10 +392,10 @@ public class GameController {
                             getCell(column, row, 7).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
 
                             
-                            Position[] posssibilities = getPossibilities(robot);
-                            for (Position position : posssibilities) {
-                                getCell(position.getColumn(), position.getRow(), 7).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
-                            }
+                            getPossibilities(robot);
+                            //for (Position position : posssibilities) {
+                            //    getCell(position.getColumn(), position.getRow(), 7).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
+                            //}
                         }
                     }
                     
@@ -405,10 +405,22 @@ public class GameController {
         this.getGroup(column, row).getChildren().add(imageView);
     }
 
-    private Position[] getPossibilities(Robot robot) {
+    private void getPossibilities(Robot robot) {
         ArrayList<Position> positions = new ArrayList<>();
 
-        return positions.toArray(new Position[positions.size()]);
+        // déplacement droite
+        int i = 1;
+        while (true) {
+            if (!(plateau.getWalls()[1][(robot.getPosition().getColumn() + 1) + i][robot.getPosition().getRow()])) {
+                i++;
+            } else {
+                System.out.println(i);
+                break;
+            }
+        }
+
+        // déplacement gauche
+
     }
 
     private Group getGroup(int column, int row) {
