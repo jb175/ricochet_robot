@@ -381,6 +381,8 @@ public class GameController {
                             //on affiche la couleur du robot selectionné
                             System.out.println("Robot "+robot.getCouleur());
 
+                            Position[] posssibilities = getPossibilities(robot);
+
                             //on enléve tous les filtres du plateaux
                             for (int i = 0; i < 2*GameController.plateau.getQuarterBoardSize()[0]; i++) {
                                 for (int j = 0; j < 2*GameController.plateau.getQuarterBoardSize()[1]; j++) {
@@ -397,6 +399,12 @@ public class GameController {
         imageView.setFitHeight(40);
         imageView.setFitWidth(40);
         this.getGroup(column, row).getChildren().add(imageView);
+    }
+
+    private Position[] getPossibilities(Robot robot) {
+        ArrayList<Position> positions = new ArrayList<>();
+
+        return positions.toArray(new Position[positions.size()]);
     }
 
     private Group getGroup(int column, int row) {
