@@ -381,8 +381,6 @@ public class GameController {
                             //on affiche la couleur du robot selectionné
                             System.out.println("Robot "+robot.getCouleur());
 
-                            Position[] posssibilities = getPossibilities(robot);
-
                             //on enléve tous les filtres du plateaux
                             for (int i = 0; i < 2*GameController.plateau.getQuarterBoardSize()[0]; i++) {
                                 for (int j = 0; j < 2*GameController.plateau.getQuarterBoardSize()[1]; j++) {
@@ -392,6 +390,12 @@ public class GameController {
 
                             //on ajoute un filtre sur la case selectionnée
                             getCell(column, row, 7).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
+
+                            
+                            Position[] posssibilities = getPossibilities(robot);
+                            for (Position position : posssibilities) {
+                                getCell(position.getColumn(), position.getRow(), 7).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
+                            }
                         }
                     }
                     
