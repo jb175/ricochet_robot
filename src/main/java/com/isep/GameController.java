@@ -421,7 +421,7 @@ public class GameController {
                     }
                 }
                 if (absRobot){
-                    positions.add(new Position((robot.getPosition().getColumn() + 1 + i), robot.getPosition().getRow()));
+                    positions.add(new Position((robot.getPosition().getColumn()+ i), robot.getPosition().getRow()));
                     break;
                 }
             }
