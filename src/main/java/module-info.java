@@ -1,5 +1,5 @@
 module com.isep {
-    requires javafx.controls;
+    requires transitive javafx.controls;
     requires javafx.fxml;
 
     opens com.isep to javafx.fxml;

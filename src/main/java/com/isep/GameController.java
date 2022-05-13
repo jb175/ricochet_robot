@@ -374,17 +374,22 @@ public class GameController {
         ImageView imageView = new ImageView();
         imageView.setOnMouseClicked
                 (event -> {
-                    System.out.println("Colonne : " + column + " | Ligne : " + row);
-                    for (int i = 0; i < 2*GameController.plateau.getQuarterBoardSize()[0]; i++) {
-                        for (int j = 0; j < 2*GameController.plateau.getQuarterBoardSize()[1]; j++) {
-                            getCell(i, j, 7).setImage(null);
-                        }
-                    }
-                    getCell(column, row, 7).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
-                    
-                    for (Robot robot : this.plateau.getRobots()) {
+                    //System.out.println("Colonne : " + column + " | Ligne : " + row);
+
+                    for (Robot robot : GameController.plateau.getRobots()) {
                         if(robot.getPosition().equals(new Position(column, row))) {
+                            //on affiche la couleur du robot selectionné
                             System.out.println("Robot "+robot.getCouleur());
+
+                            //on enléve tous les filtres du plateaux
+                            for (int i = 0; i < 2*GameController.plateau.getQuarterBoardSize()[0]; i++) {
+                                for (int j = 0; j < 2*GameController.plateau.getQuarterBoardSize()[1]; j++) {
+                                    getCell(i, j, 7).setImage(null);
+                                }
+                            }
+
+                            //on ajoute un filtre sur la case selectionnée
+                            getCell(column, row, 7).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
                         }
                     }
                     
