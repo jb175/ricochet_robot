@@ -10,7 +10,6 @@ import com.isep.model.Position;
 import com.isep.model.Robot;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
-import javafx.scene.control.skin.TextInputControlSkin.Direction;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -419,6 +418,7 @@ public class GameController {
         this.getGroup(column, row).getChildren().add(imageView);
     }
 
+    @SuppressWarnings("unused")
     private void RobotSelection(int column, int row) {
         for (Robot robot : GameController.plateau.getRobots()) {
             if(robot.getPosition().equals(new Position(column, row))) {
@@ -446,6 +446,7 @@ public class GameController {
         }
     }
 
+    @SuppressWarnings("unused")
     private void SelectionDestination(int column, int row) {
         for (Position p : position) {
             if(p.equals(new Position(column, row))) {
