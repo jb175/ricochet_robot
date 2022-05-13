@@ -16,7 +16,15 @@ public class Solution {
   //
   // Constructors
   //
-  public Solution () { };
+  public Solution () { }
+
+  public ArrayList<Mouvement> getMouvements() {
+    return mouvements;
+  }
+
+  public void setMouvements(ArrayList<Mouvement> mouvements) {
+    this.mouvements = mouvements;
+  };
   
   //
   // Methods
@@ -30,5 +38,7 @@ public class Solution {
   //
   // Other methods
   //
+
+  
 
 }

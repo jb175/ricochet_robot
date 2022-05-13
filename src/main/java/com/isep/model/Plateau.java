@@ -125,6 +125,33 @@ public class Plateau {
     this.jetons = jetons;
   }
 
+  public void setQuarterBoardSize(int[] quarterBoardSize) {
+    this.quarterBoardSize = quarterBoardSize;
+  }
+
+  public void setCellSize(int cellSize) {
+    this.cellSize = cellSize;
+  }
+
+  public void setWallAgainstBorderPerQuarter(int wallAgainstBorderPerQuarter) {
+    this.wallAgainstBorderPerQuarter = wallAgainstBorderPerQuarter;
+  }
+
+  public void setNumberOfCornersPerQuarter(int numberOfCornersPerQuarter) {
+    this.numberOfCornersPerQuarter = numberOfCornersPerQuarter;
+  }
+
+  public void setColors(String[] colors) {
+    this.colors = colors;
+  }
+
+  public void setShapes(String[] shapes) {
+    this.shapes = shapes;
+  }
+
+  public Jeton[] getJetons() {
+    return jetons;
+  }
   //
   //
   // Other methods

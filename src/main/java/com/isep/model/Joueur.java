@@ -14,7 +14,23 @@ public class Joueur {
   //
   // Constructors
   //
-  public Joueur () { };
+  public Joueur () { }
+
+  public String getPseudo() {
+    return pseudo;
+  }
+
+  public void setPseudo(String pseudo) {
+    this.pseudo = pseudo;
+  }
+
+  public int getScore() {
+    return score;
+  }
+
+  public void setScore(int score) {
+    this.score = score;
+  };
   
   //
   // Methods
@@ -28,5 +44,6 @@ public class Joueur {
   //
   // Other methods
   //
+  
 
 }

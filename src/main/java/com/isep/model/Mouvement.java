@@ -14,7 +14,23 @@ public class Mouvement {
   //
   // Constructors
   //
-  public Mouvement () { };
+  public Mouvement () { }
+
+  public Robot getRobot() {
+    return robot;
+  }
+
+  public void setRobot(Robot robot) {
+    this.robot = robot;
+  }
+
+  public String getDirection() {
+    return direction;
+  }
+
+  public void setDirection(String direction) {
+    this.direction = direction;
+  };
   
   //
   // Methods
@@ -28,5 +44,7 @@ public class Mouvement {
   //
   // Other methods
   //
+
+  
 
 }
