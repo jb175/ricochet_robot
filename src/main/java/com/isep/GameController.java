@@ -21,7 +21,7 @@ public class GameController {
     private GridPane grid;
 
     Robot selectedRobot;
-    Position[] position;
+    Position[] positions;
 
     protected static Plateau plateau = new Plateau(new int[]{8, 8}, 40, 1, 4, new String[]{"Red", "Green", "Blue", "Yellow"}, new String[]{"Circle", "Star", "Triangle", "Hexagon"});
 
@@ -380,7 +380,12 @@ public class GameController {
 
     }
 
-    private void updateGame() {
+    private void updateGame(int column, int raw) {
+        updateRobots();
+        updateSelection(column, raw);
+    }
+
+    private void updateRobots() {
         for (int i = 0; i < 2*GameController.plateau.getQuarterBoardSize()[0]; i++) {
             for (int j = 0; j < 2*GameController.plateau.getQuarterBoardSize()[1]; j++) {
                 getCell(i, j, 6).setImage(null);
@@ -389,6 +394,11 @@ public class GameController {
         for (Robot robot : GameController.plateau.getRobots()) {
             getCell(robot.getPosition().getColumn(), robot.getPosition().getRow(), 6).setImage(new Image(getClass().getResourceAsStream("/img/"+robot.getCouleur()+"Robot.png")));
         }
+    }
+
+    private void updateSelection(int column, int row) {
+        this.positions = new Position[] {};
+        RobotSelection(column, row);
     }
 
     //accéder à une cas à partir de la grille et des coordonées
@@ -437,8 +447,8 @@ public class GameController {
                 getCell(column, row, 7).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
 
                 
-                this.position = getPossibilities(robot);
-                for (Position p : position) {
+                this.positions = getPossibilities(robot);
+                for (Position p : this.positions) {
                     getCell(p.getColumn(), p.getRow(), 7).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
                     
                 }
@@ -448,11 +458,11 @@ public class GameController {
 
     @SuppressWarnings("unused")
     private void SelectionDestination(int column, int row) {
-        for (Position p : position) {
+        for (Position p : this.positions) {
             if(p.equals(new Position(column, row))) {
                 System.out.println(column+":"+row);
                 selectedRobot.setPosition(new Position(column, row));
-                updateGame();
+                updateGame(column, row);
             }
         }
     }
