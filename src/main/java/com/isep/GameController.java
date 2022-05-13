@@ -409,13 +409,21 @@ public class GameController {
         ArrayList<Position> positions = new ArrayList<>();
 
         // déplacement droite
+        boolean absRobot = true;
         int i = 1;
         while (true) {
             if (!(plateau.getWalls()[1][(robot.getPosition().getColumn() + 1) + i][robot.getPosition().getRow()])) {
                 i++;
             } else {
-                System.out.println(i);
-                break;
+                for (Robot robotT : GameController.plateau.getRobots()) {
+                    if (robotT.getPosition().equals(new Position((robot.getPosition().getColumn() + 1) + i, robot.getPosition().getRow()))) {
+                        absRobot = false;
+                    }
+                }
+                if (absRobot){
+                    System.out.println(i);
+                    break;
+                }
             }
         }
 
