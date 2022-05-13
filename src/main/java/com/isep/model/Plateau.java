@@ -93,6 +93,10 @@ public class Plateau {
     return shapes;
   }
 
+  public Robot[] getRobots() {
+    return this.robots;
+  }
+
   public void setWalls(Boolean[][][] walls) {
     this.walls = walls;
   }

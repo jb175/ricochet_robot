@@ -9,7 +9,7 @@ public class Robot {
   // Fields
   //
 
-  private String couleur;
+  private final String couleur;
   private Position position;
   
   //
@@ -19,18 +19,16 @@ public class Robot {
     this.couleur = couleur;
     this.position = position;
   }
-  
-  //
-  // Methods
-  //
 
+  public String getCouleur() {
+    return couleur;
+  }
 
-  //
-  // Accessor methods
-  //
+  public Position getPosition() {
+    return position;
+  }
 
-  //
-  // Other methods
-  //
-
+  public void setPosition(Position position) {
+    this.position = position;
+  }  
 }

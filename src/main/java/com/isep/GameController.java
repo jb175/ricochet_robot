@@ -382,6 +382,12 @@ public class GameController {
                     }
                     getCell(column, row, 7).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
                     
+                    for (Robot robot : this.plateau.getRobots()) {
+                        if(robot.getPosition().equals(new Position(column, row))) {
+                            System.out.println("Robot "+robot.getCouleur());
+                        }
+                    }
+                    
                 });
         imageView.setFitHeight(40);
         imageView.setFitWidth(40);
