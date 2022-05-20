@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -671,19 +672,33 @@ public class GameController {
         }
         return board.toArray(new Boolean[board.size()][board.get(0).length]); //convertion de l'arraylist en array et retour de son tableau
     }
-    @FXML
-    private TextField textfieldJoueur;
-    public ObservableList<Joueur> getJoueurDat() {
-        return joueurDat;
-    }
-    private ObservableList<Joueur> joueurDat = FXCollections.observableArrayList();
+//    @FXML
+//    private TextField textfieldJoueur;
+//    @FXML
+//    private TableView<Joueur> joueurTable;
+//    @FXML
+//    private TableColumn<Joueur, String> joueurNameColumn;
+//    @FXML
+//    private TableColumn<Joueur, String> joueurCoupColumn;
+
+//    public ObservableList<Joueur> getJoueurDat() {
+//        return joueurDat;
+//    }
+//    private ObservableList<Joueur> joueurDat = FXCollections.observableArrayList();
 
 
-    @FXML
-    public void addJoueur(){
-        if (!Objects.equals(textfieldJoueur.getText(), "")){
-            this.getJoueurDat().add(new Joueur(textfieldJoueur.getText()));
-        }
-    }
+    //    @FXML
+    //   private void initialise(){
+    //    joueurNameColumn.setCellValueFactory(dataName->dataName.getValue().nameJoueurProperty());
+    //   joueurCoupColumn.setCellValueFactory(dataType->dataType.getValue().coupJoueurProperty());
+    //}
+    //@FXML
+    //public void addJoueur(){
+    //  if (!Objects.equals(textfieldJoueur.getText(), "")){
+    //      this.getJoueurDat().add(new Joueur(textfieldJoueur.getText()));
+    //      joueurTable.setItems(this.getJoueurDat());
+    //  }
+    //}
+
 
 }

@@ -15,10 +15,16 @@
             </GridPane>
             <Pane prefWidth="300.0">
                <children>
-                  <TextField fx:id="textfieldJoueur" layoutX="75.0" layoutY="188.0" promptText="Saisir vote nom">
+                  <TextField fx:id="textfieldJoueur" layoutX="75.0" layoutY="210.0" promptText="Saisir vote nom">
                   </TextField>
-                  <Button layoutX="116.0" layoutY="231.0" mnemonicParsing="false" onAction="#addJoueur" text="Confirmer">
+                  <Button layoutX="116.0" layoutY="244.0" mnemonicParsing="false" onAction="#addJoueur" text="Confirmer">
                   </Button>
+                  <TableView fx:id="joueurTable" layoutX="50.0" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn fx:id="joueurNameColumn" prefWidth="75.0" text="C1" />
+                      <TableColumn fx:id="joueurCoupColumn" prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
                </children></Pane>
          </children>
       </HBox>
