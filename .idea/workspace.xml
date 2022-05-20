@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65999d4a-0650-4c85-9665-3cecc835cfcd" name="Changes" comment="mise à jour du modèle">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/isep/root.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/play.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/root.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/isep/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/isep/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/isep/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/isep/GameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/isep/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/isep/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/isep/model/Temps.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/isep/model/Temps.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/isep/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/isep/GameController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +24,7 @@
       <list>
         <option value="Class" />
         <option value="Enum" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -49,7 +55,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TP3" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TP6" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -57,6 +63,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\alexa\OneDrive\Documents\ISEP\A1\Algorithmie &amp; programmation\TPs\Codes\Ricochet Robots\src\main\resources\img" />
       <recent name="C:\Users\alexa\OneDrive\Documents\ISEP\A1\Algorithmie &amp; programmation\TPs\Codes\Ricochet Robots\src\main\java\com\isep" />
     </key>
   </component>
@@ -104,7 +111,10 @@
       <workItem from="1652087746097" duration="153000" />
       <workItem from="1652423810467" duration="795000" />
       <workItem from="1652425748966" duration="3438000" />
-      <workItem from="1652430437845" duration="763000" />
+      <workItem from="1652430437845" duration="5364000" />
+      <workItem from="1653033255368" duration="705000" />
+      <workItem from="1653034006621" duration="158000" />
+      <workItem from="1653034257543" duration="4031000" />
     </task>
     <task id="LOCAL-00001" summary="r">
       <created>1651693525375</created>
@@ -211,7 +221,21 @@
       <option name="project" value="LOCAL" />
       <updated>1652430951767</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="mise à jour du modèle">
+      <created>1652431274927</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1652431274927</updated>
+    </task>
+    <task id="LOCAL-00017" summary="mise à jour du modèle">
+      <created>1652431474905</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1652431474905</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

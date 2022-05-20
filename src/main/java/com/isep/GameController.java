@@ -410,24 +410,45 @@ public class GameController {
 
         // déplacement droite
         boolean absRobot = true;
-        int i = 1;
+        int i = 0;
         while (true) {
-            if (!(plateau.getWalls()[1][(robot.getPosition().getColumn() + 1) + i][robot.getPosition().getRow()])) {
+            if (!(plateau.getWalls()[1][robot.getPosition().getColumn() + 1 + i][robot.getPosition().getRow()])) {
                 i++;
-            } else {
+            } else if (i!=0){
                 for (Robot robotT : GameController.plateau.getRobots()) {
-                    if (robotT.getPosition().equals(new Position((robot.getPosition().getColumn() + 1) + i, robot.getPosition().getRow()))) {
+                    if (robotT.getPosition().equals(new Position(robot.getPosition().getColumn() + 1 + i, robot.getPosition().getRow()))) {
                         absRobot = false;
                     }
                 }
                 if (absRobot){
-                    positions.add(new Position((robot.getPosition().getColumn()+ i), robot.getPosition().getRow()));
+                    positions.add(new Position((robot.getPosition().getColumn() + i), robot.getPosition().getRow()));
                     break;
                 }
+            } else {
+                break;
             }
         }
 
         // déplacement gauche
+        absRobot = true;
+        i = 0;
+        while (true) {
+            if (!(plateau.getWalls()[1][robot.getPosition().getColumn() - i][robot.getPosition().getRow()])) {
+                i++;
+            } else if (i!=0) {
+                for (Robot robotT : GameController.plateau.getRobots()) {
+                    if (robotT.getPosition().equals(new Position(robot.getPosition().getColumn() - i, robot.getPosition().getRow()))) {
+                        absRobot = false;
+                    }
+                }
+                if (absRobot) {
+                    positions.add(new Position((robot.getPosition().getColumn() - i), robot.getPosition().getRow()));
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
 
         return positions.toArray(new Position[positions.size()]);
     }

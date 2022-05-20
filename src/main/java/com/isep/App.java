@@ -1,7 +1,9 @@
 package com.isep;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -14,16 +16,24 @@ import java.io.IOException;
  */
 public class App extends Application {
 
+    private Stage stage;
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
+        // on charge la vue "RootLayout"
+        stage.getIcons().add(new Image("file:src/main/resources/img/Board.png"));
+        stage.setTitle("Ricochet Robots");
+        stage.setScene(new Scene(loadFXML("root"), 900, 660));
+        stage.show();
+    }
+
+    public void switchToGame(ActionEvent event) throws IOException{
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.getIcons().add(new Image("file:src/main/resources/img/Board.png"));
         stage.setTitle("RicochetRobot");
         scene = new Scene(loadFXML("game"), 2*GameController.plateau.getQuarterBoardSize()[0]*GameController.plateau.getCellSize()+20, 2*GameController.plateau.getQuarterBoardSize()[1]*GameController.plateau.getCellSize()+20);
         stage.setScene(scene);
-        //stage.setMaximized(true);
-
         stage.show();
     }
 
