@@ -672,6 +672,7 @@ public class GameController {
         }
         return board.toArray(new Boolean[board.size()][board.get(0).length]); //convertion de l'arraylist en array et retour de son tableau
     }
+
 //    @FXML
 //    private TextField textfieldJoueur;
 //    @FXML
