@@ -14,7 +14,9 @@ public class Joueur {
   //
   // Constructors
   //
-  public Joueur(String name) { }
+  public Joueur(String pseudo) {
+    this.pseudo = pseudo;
+  }
 
   public String getPseudo() {
     return pseudo;

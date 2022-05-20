@@ -537,7 +537,6 @@ public class GameController {
             }
         }
 
-
         return positions.toArray(new Position[positions.size()]);
     }
 
@@ -672,4 +671,19 @@ public class GameController {
         }
         return board.toArray(new Boolean[board.size()][board.get(0).length]); //convertion de l'arraylist en array et retour de son tableau
     }
+    @FXML
+    private TextField textfieldJoueur;
+    public ObservableList<Joueur> getJoueurDat() {
+        return joueurDat;
+    }
+    private ObservableList<Joueur> joueurDat = FXCollections.observableArrayList();
+
+
+    @FXML
+    public void addJoueur(){
+        if (!Objects.equals(textfieldJoueur.getText(), "")){
+            this.getJoueurDat().add(new Joueur(textfieldJoueur.getText()));
+        }
+    }
+
 }
