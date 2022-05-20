@@ -20,7 +20,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         stage.getIcons().add(new Image("file:src/main/resources/img/Board.png"));
         stage.setTitle("RicochetRobot");
-        scene = new Scene(loadFXML("game"), 2*GameController.plateau.getQuarterBoardSize()[0]*GameController.plateau.getCellSize()+20, 2*GameController.plateau.getQuarterBoardSize()[1]*GameController.plateau.getCellSize()+20);
+        scene = new Scene(loadFXML("game"), 2*GameController.plateau.getQuarterBoardSize()[0]*GameController.plateau.getCellSize()+20+300, 2*GameController.plateau.getQuarterBoardSize()[1]*GameController.plateau.getCellSize()+20);
         stage.setScene(scene);
         //stage.setMaximized(true);
 
