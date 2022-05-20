@@ -31,7 +31,7 @@ public class App extends Application {
     public void switchToGame(ActionEvent event) throws IOException{
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.getIcons().add(new Image("file:src/main/resources/img/Board.png"));
-        stage.setTitle("RicochetRobot");
+        stage.setTitle("Ricochet Robots");
         scene = new Scene(loadFXML("game"), 2*GameController.plateau.getQuarterBoardSize()[0]*GameController.plateau.getCellSize()+20+300, 2*GameController.plateau.getQuarterBoardSize()[1]*GameController.plateau.getCellSize()+20);
         stage.setScene(scene);
         stage.show();
