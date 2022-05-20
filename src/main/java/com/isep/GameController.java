@@ -1,5 +1,6 @@
 package com.isep;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -18,6 +19,9 @@ import javafx.scene.layout.RowConstraints;
 public class GameController {
     @FXML
     private GridPane grid;
+
+    Robot selectedRobot;
+    Position[] positions;
 
     protected static Plateau plateau = new Plateau(new int[]{8, 8}, 40, 1, 4, new String[]{"Red", "Green", "Blue", "Yellow"}, new String[]{"Circle", "Star", "Triangle", "Hexagon"});
 
@@ -52,8 +56,8 @@ public class GameController {
                 addImage(i, j);//wallrow1 3
                 addImage(i, j);//wallrow2 4
                 addImage(i, j);//objective 5
-                addImage(i, j);//robot 6
-                addImage(i, j);//selection filter 7
+                addImage(i, j, this.getClass().getDeclaredMethod("RobotSelection", int.class, int.class));//robot 6
+                addImage(i, j, this.getClass().getDeclaredMethod("SelectionDestination", int.class, int.class));//selection filter 7
             }
         }
 
@@ -361,8 +365,40 @@ public class GameController {
             robotsList.add(new Robot(plateau.getColors()[i%4], new Position(positions.get(i).getColumn(), positions.get(i).getRow())));
             getCell(positions.get(i).getColumn(), positions.get(i).getRow(), 6).setImage(new Image(getClass().getResourceAsStream("/img/"+plateau.getColors()[i]+"Robot.png")));
         }
+
+        // robotsList.add(new Robot(plateau.getColors()[0], new Position(9, 7)));
+        // getCell(9, 7, 6).setImage(new Image(getClass().getResourceAsStream("/img/"+plateau.getColors()[0]+"Robot.png")));
+
+        // robotsList.add(new Robot(plateau.getColors()[0], new Position(12, 7)));
+        // getCell(12, 7, 6).setImage(new Image(getClass().getResourceAsStream("/img/"+plateau.getColors()[0]+"Robot.png")));
+
+        // robotsList.add(new Robot(plateau.getColors()[0], new Position(9, 8)));
+        // getCell(9, 8, 6).setImage(new Image(getClass().getResourceAsStream("/img/"+plateau.getColors()[0]+"Robot.png")));
+
+
         plateau.setRobots(robotsList.toArray(new Robot[robotsList.size()]));
 
+    }
+
+    private void updateGame(int column, int raw) {
+        updateRobots();
+        updateSelection(column, raw);
+    }
+
+    private void updateRobots() {
+        for (int i = 0; i < 2*GameController.plateau.getQuarterBoardSize()[0]; i++) {
+            for (int j = 0; j < 2*GameController.plateau.getQuarterBoardSize()[1]; j++) {
+                getCell(i, j, 6).setImage(null);
+            }
+        }
+        for (Robot robot : GameController.plateau.getRobots()) {
+            getCell(robot.getPosition().getColumn(), robot.getPosition().getRow(), 6).setImage(new Image(getClass().getResourceAsStream("/img/"+robot.getCouleur()+"Robot.png")));
+        }
+    }
+
+    private void updateSelection(int column, int row) {
+        this.positions = new Position[] {};
+        RobotSelection(column, row);
     }
 
     //accéder à une cas à partir de la grille et des coordonées
@@ -372,85 +408,160 @@ public class GameController {
 
     private void addImage(int column, int row) {
         ImageView imageView = new ImageView();
+        imageView.setFitHeight(40);
+        imageView.setFitWidth(40);
+        this.getGroup(column, row).getChildren().add(imageView);
+    }
+
+    private void addImage(int column, int row, Method method) {
+        ImageView imageView = new ImageView();
         imageView.setOnMouseClicked
                 (event -> {
-                    //System.out.println("Colonne : " + column + " | Ligne : " + row);
-
-                    for (Robot robot : GameController.plateau.getRobots()) {
-                        if(robot.getPosition().equals(new Position(column, row))) {
-                            //on affiche la couleur du robot selectionné
-                            System.out.println("Robot "+robot.getCouleur());
-
-                            //on enléve tous les filtres du plateaux
-                            for (int i = 0; i < 2*GameController.plateau.getQuarterBoardSize()[0]; i++) {
-                                for (int j = 0; j < 2*GameController.plateau.getQuarterBoardSize()[1]; j++) {
-                                    getCell(i, j, 7).setImage(null);
-                                }
-                            }
-
-                            //on ajoute un filtre sur la case selectionnée
-                            getCell(column, row, 7).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
-
-                            
-                            Position[] position = getPossibilities(robot);
-                            for (Position p : position) {
-                                getCell(p.getColumn(), p.getRow(), 7).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
-                            }
-                        }
-                    }
-                    
+                    try {
+                        method.invoke(this, column, row);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }                    
                 });
         imageView.setFitHeight(40);
         imageView.setFitWidth(40);
         this.getGroup(column, row).getChildren().add(imageView);
     }
 
+    @SuppressWarnings("unused")
+    private void RobotSelection(int column, int row) {
+        for (Robot robot : GameController.plateau.getRobots()) {
+            if(robot.getPosition().equals(new Position(column, row))) {
+                //on affiche la couleur du robot selectionné
+                System.out.println("Robot "+robot.getCouleur());
+                selectedRobot = robot;
+
+                //on enléve tous les filtres du plateaux
+                for (int i = 0; i < 2*GameController.plateau.getQuarterBoardSize()[0]; i++) {
+                    for (int j = 0; j < 2*GameController.plateau.getQuarterBoardSize()[1]; j++) {
+                        getCell(i, j, 7).setImage(null);
+                    }
+                }
+
+                //on ajoute un filtre sur la case selectionnée
+                getCell(column, row, 7).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
+
+                
+                this.positions = getPossibilities(robot);
+                for (Position p : this.positions) {
+                    getCell(p.getColumn(), p.getRow(), 7).setImage(new Image(getClass().getResourceAsStream("/img/selection.png")));
+                    
+                }
+            }
+        }
+    }
+
+    @SuppressWarnings("unused")
+    private void SelectionDestination(int column, int row) {
+        for (Position p : this.positions) {
+            if(p.equals(new Position(column, row))) {
+                System.out.println(column+":"+row);
+                selectedRobot.setPosition(new Position(column, row));
+                updateGame(column, row);
+            }
+        }
+    }
+
+    enum direction{
+        top,
+        right,
+        bottom,
+        left
+    }
+
     private Position[] getPossibilities(Robot robot) {
         ArrayList<Position> positions = new ArrayList<>();
+        int i;
+
+        
 
         // déplacement droite
-        boolean absRobot = true;
-        int i = 0;
+        i = 1;
         while (true) {
-            if (!(plateau.getWalls()[1][robot.getPosition().getColumn() + 1 + i][robot.getPosition().getRow()])) {
+            if (check1Movement(robot, new Position(robot.getPosition().getColumn()+i, robot.getPosition().getRow()), direction.right)) {
                 i++;
-            } else if (i!=0){
-                for (Robot robotT : GameController.plateau.getRobots()) {
-                    if (robotT.getPosition().equals(new Position(robot.getPosition().getColumn() + 1 + i, robot.getPosition().getRow()))) {
-                        absRobot = false;
-                    }
-                }
-                if (absRobot){
-                    positions.add(new Position((robot.getPosition().getColumn() + i), robot.getPosition().getRow()));
-                    break;
-                }
             } else {
+                if (i!=0) {
+                    positions.add(new Position(robot.getPosition().getColumn()+(i-1), robot.getPosition().getRow()));
+                }
                 break;
             }
         }
 
-        // déplacement gauche
-        absRobot = true;
-        i = 0;
+        //déplacement gauche
+        i = 1;
         while (true) {
-            if (!(plateau.getWalls()[1][robot.getPosition().getColumn() - i][robot.getPosition().getRow()])) {
+            if (check1Movement(robot, new Position(robot.getPosition().getColumn()-i, robot.getPosition().getRow()), direction.left)) {
                 i++;
-            } else if (i!=0) {
-                for (Robot robotT : GameController.plateau.getRobots()) {
-                    if (robotT.getPosition().equals(new Position(robot.getPosition().getColumn() - i, robot.getPosition().getRow()))) {
-                        absRobot = false;
-                    }
-                }
-                if (absRobot) {
-                    positions.add(new Position((robot.getPosition().getColumn() - i), robot.getPosition().getRow()));
-                    break;
-                }
             } else {
+                if (i!=0) {
+                    positions.add(new Position(robot.getPosition().getColumn()-(i-1), robot.getPosition().getRow()));
+                }
                 break;
             }
         }
+
+        //déplacement bas
+        i = 1;
+        while (true) {
+            if (check1Movement(robot, new Position(robot.getPosition().getColumn(), robot.getPosition().getRow()+i), direction.bottom)) {
+                i++;
+            } else {
+                if (i!=0) {
+                    positions.add(new Position(robot.getPosition().getColumn(), robot.getPosition().getRow()+(i-1)));
+                }
+                break;
+            }
+        }
+
+        //déplacement haut
+        i = 1;
+        while (true) {
+            if (check1Movement(robot, new Position(robot.getPosition().getColumn(), robot.getPosition().getRow()-i), direction.top)) {
+                i++;
+            } else {
+                if (i!=0) {
+                    positions.add(new Position(robot.getPosition().getColumn(), robot.getPosition().getRow()-(i-1)));
+                }
+                break;
+            }
+        }
+
 
         return positions.toArray(new Position[positions.size()]);
+    }
+
+    private Boolean check1Movement(Robot robot, Position position, direction d) {
+        //check wall
+        if (d==direction.values()[0]) {
+            if (plateau.getWalls()[0][position.getColumn()][position.getRow()+1]) {
+                return false;
+            }
+        } else if (d==direction.values()[1]) {
+            if (plateau.getWalls()[1][position.getColumn()][position.getRow()]) {
+                return false;
+            }
+        } else if (d==direction.values()[2]) {
+            if (plateau.getWalls()[0][position.getColumn()][position.getRow()]) {
+                return false;
+            }
+        } else if (d==direction.values()[3]) {
+            if (plateau.getWalls()[1][position.getColumn()+1][position.getRow()]) {
+                return false;
+            }
+        }
+        //check robot
+        for (Robot robotT : GameController.plateau.getRobots()) {
+            if (robotT.getPosition().equals(position)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private Group getGroup(int column, int row) {
