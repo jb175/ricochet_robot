@@ -3,13 +3,15 @@ package com.isep;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
-import com.isep.model.Jeton;
-import com.isep.model.Plateau;
-import com.isep.model.Position;
-import com.isep.model.Robot;
+import com.isep.model.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -473,7 +475,10 @@ public class GameController {
         bottom,
         left
     }
+    //////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////Ajoute un joueur//////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////////////////
     private Position[] getPossibilities(Robot robot) {
         ArrayList<Position> positions = new ArrayList<>();
         int i;
