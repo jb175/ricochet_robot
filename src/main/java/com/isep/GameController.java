@@ -687,6 +687,7 @@ public class GameController {
         this.app = app;
         joueurs.setItems(app.getJoueursData());
         nomColumn.setCellValueFactory(cellData -> cellData.getValue().getNomProperty());
+        scoreColumn.setCellValueFactory(cellData -> cellData.getValue().getScoreProperty());
     }
 
 }

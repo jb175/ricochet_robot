@@ -14,14 +14,14 @@ public class Joueur {
   // Fields
   //
   private StringProperty nom;
-  private IntegerProperty score;
+  private int score;
   
   //
   // Constructors
   //
   public Joueur (String nom) {
     this.nom = new SimpleStringProperty(nom);
-    this.score = new SimpleIntegerProperty();
+    score = 0;
   }
 
   public String getNom() {
@@ -37,15 +37,15 @@ public class Joueur {
   }
 
   public int getScore() {
-    return score.get();
-  }
-
-  public IntegerProperty getScoreProperty(){
     return score;
   }
 
+  public StringProperty getScoreProperty(){
+    return new SimpleStringProperty(Integer.toString(score));
+  }
+
   public void setScore(int score) {
-    this.score.set(this.score.get()+score);
+    this.score = this.score + score;
   }
   
   //
