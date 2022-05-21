@@ -1,5 +1,10 @@
 package com.isep.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Class Joueur
  */
@@ -8,29 +13,40 @@ public class Joueur {
   //
   // Fields
   //
-  private String pseudo;
-  private int score = 0;
+  private StringProperty nom;
+  private IntegerProperty score;
   
   //
   // Constructors
   //
-  public Joueur () { }
-
-  public String getPseudo() {
-    return pseudo;
+  public Joueur (String nom) {
+    this.nom = new SimpleStringProperty(nom);
+    this.score = new SimpleIntegerProperty();
   }
 
-  public void setPseudo(String pseudo) {
-    this.pseudo = pseudo;
+  public String getNom() {
+    return nom.get();
+  }
+
+  public StringProperty getNomProperty(){
+    return nom;
+  }
+
+  public void setNom(String nom) {
+    this.nom.set(nom);
   }
 
   public int getScore() {
+    return score.get();
+  }
+
+  public IntegerProperty getScoreProperty(){
     return score;
   }
 
   public void setScore(int score) {
-    this.score = score;
-  };
+    this.score.set(this.score.get()+score);
+  }
   
   //
   // Methods

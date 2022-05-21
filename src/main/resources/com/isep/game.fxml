@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.isep.GameController">
    <children>
@@ -14,7 +13,18 @@
                   <Insets left="10.0" top="10.0" />
                </padding>
             </GridPane>
-            <Pane prefWidth="300.0" />
+            <Pane prefWidth="300.0">
+               <children>
+                  <TableView prefHeight="200.0" prefWidth="288.0">
+                    <columns>
+                      <TableColumn prefWidth="144.0" text="Nom" />
+                      <TableColumn prefWidth="144.0" text="Score" />
+                    </columns>
+                  </TableView>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </HBox.margin></Pane>
          </children>
       </HBox>
    </children>

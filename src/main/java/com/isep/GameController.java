@@ -1,5 +1,6 @@
 package com.isep;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,12 +10,17 @@ import com.isep.model.Plateau;
 import com.isep.model.Position;
 import com.isep.model.Robot;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class GameController {
     @FXML
@@ -22,7 +28,7 @@ public class GameController {
 
     Robot selectedRobot;
     Position[] positions;
-
+    private static App app;
     protected static Plateau plateau = new Plateau(new int[]{8, 8}, 40, 1, 4, new String[]{"Red", "Green", "Blue", "Yellow"}, new String[]{"Circle", "Star", "Triangle", "Hexagon"});
 
     @FXML
@@ -667,4 +673,5 @@ public class GameController {
         }
         return board.toArray(new Boolean[board.size()][board.get(0).length]); //convertion de l'arraylist en array et retour de son tableau
     }
+
 }
