@@ -9,6 +9,7 @@ import java.util.Objects;
 
 public class PlayerController {
 
+    private boolean jouerClicked = false;
     private App app;
     private Stage dialogStage;
 
@@ -58,6 +59,7 @@ public class PlayerController {
 
     @FXML
     private void jouer(){
+        jouerClicked = true;
         dialogStage.close();
     }
 
@@ -69,6 +71,11 @@ public class PlayerController {
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
+
+    public boolean isJouerClicked() {
+        return jouerClicked;
+    }
+
 
 
 }

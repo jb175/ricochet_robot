@@ -5,14 +5,13 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import com.isep.model.Jeton;
-import com.isep.model.Plateau;
-import com.isep.model.Position;
-import com.isep.model.Robot;
+import com.isep.model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -23,12 +22,22 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class GameController {
+
+    @FXML
+    private TableView<Joueur> joueurs;
+
+    @FXML
+    private TableColumn<Joueur, String> nomColumn;
+
+    @FXML
+    private TableColumn<Joueur, String> scoreColumn;
+
     @FXML
     private GridPane grid;
 
     Robot selectedRobot;
     Position[] positions;
-    private static App app;
+    private App app;
     protected static Plateau plateau = new Plateau(new int[]{8, 8}, 40, 1, 4, new String[]{"Red", "Green", "Blue", "Yellow"}, new String[]{"Circle", "Star", "Triangle", "Hexagon"});
 
     @FXML
@@ -672,6 +681,12 @@ public class GameController {
             }
         }
         return board.toArray(new Boolean[board.size()][board.get(0).length]); //convertion de l'arraylist en array et retour de son tableau
+    }
+
+    public void updateJoueurs(App app){
+        this.app = app;
+        joueurs.setItems(app.getJoueursData());
+        nomColumn.setCellValueFactory(cellData -> cellData.getValue().getNomProperty());
     }
 
 }

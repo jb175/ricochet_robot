@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.isep.GameController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.isep.GameController">
    <children>
       <HBox>
          <children>
@@ -15,9 +15,9 @@
             </GridPane>
             <Pane prefWidth="300.0">
                <children>
-                  <TableView prefHeight="200.0" prefWidth="288.0">
+                  <TableView fx:id="joueurs" prefHeight="200.0" prefWidth="288.0">
                     <columns>
-                      <TableColumn prefWidth="144.0" text="Nom" />
+                      <TableColumn fx:id="nomColumn" prefWidth="144.0" text="Nom" />
                       <TableColumn prefWidth="144.0" text="Score" />
                     </columns>
                   </TableView>

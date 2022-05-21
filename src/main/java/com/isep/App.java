@@ -42,10 +42,13 @@ public class App extends Application {
         scene = new Scene(fxmlLoader.load(), 2*GameController.plateau.getQuarterBoardSize()[0]*GameController.plateau.getCellSize()+20+300, 2*GameController.plateau.getQuarterBoardSize()[1]*GameController.plateau.getCellSize()+20);
         stage.setScene(scene);
         stage.show();
-        showPlayerEditDialog();
+        GameController controller = fxmlLoader.getController();
+        if(showPlayerEditDialog()){
+            controller.updateJoueurs(this);
+        }
     }
 
-    public void showPlayerEditDialog() throws IOException {
+    public Boolean showPlayerEditDialog() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("player.fxml"));
         AnchorPane page = (AnchorPane) fxmlLoader.load();
         Stage dialogStage = new Stage();
@@ -59,6 +62,7 @@ public class App extends Application {
         controller.setDialogStage(dialogStage);
         controller.setApp(this);
         dialogStage.showAndWait();
+        return controller.isJouerClicked();
     }
 
     static void setRoot(String fxml) throws IOException {
