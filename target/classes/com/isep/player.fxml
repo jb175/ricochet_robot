@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.isep.PlayerController">
+   <children>
+      <TableView fx:id="joueurs" layoutX="200.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="nomColumn" prefWidth="199.1999969482422" text="Nom" />
+        </columns>
+      </TableView>
+      <TextField fx:id="nomField" layoutX="200.0" layoutY="240.0" prefHeight="26.0" prefWidth="200.0" promptText="Saisir le nom du joueur" />
+      <Button layoutX="200.0" layoutY="292.0" mnemonicParsing="false" onAction="#addJoueur" prefHeight="26.0" prefWidth="95.0" text="Ajouter" />
+      <Button layoutX="304.0" layoutY="292.0" mnemonicParsing="false" onAction="#deleteJoueur" prefHeight="26.0" prefWidth="95.0" text="Supprimer" />
+      <Button layoutX="200.0" layoutY="328.0" mnemonicParsing="false" onAction="#jouer" prefHeight="26.0" prefWidth="200.0" text="Jouer" />
+   </children>
+</AnchorPane>
