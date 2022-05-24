@@ -9,19 +9,19 @@ public class Robot {
   // Fields
   //
 
-  private final String couleur;
+  private final String color;
   private Position position;
   
   //
   // Constructors
   //
-  public Robot (String couleur, Position position) {
-    this.couleur = couleur;
+  public Robot (String color, Position position) {
+    this.color = color;
     this.position = position;
   }
 
-  public String getCouleur() {
-    return couleur;
+  public String getColor() {
+    return color;
   }
 
   public Position getPosition() {

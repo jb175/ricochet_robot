@@ -23,7 +23,6 @@ public class Position {
     // Methods
     //
 
-
     //
     // Accessor methods
     //
@@ -50,4 +49,5 @@ public class Position {
             return false;
         return true;
     }
+
 }

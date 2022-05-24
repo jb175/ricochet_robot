@@ -1,21 +1,28 @@
 package com.isep.model;
 
 /**
- * Class Mouvement
+ * Class Movement
  */
-public class Mouvement {
+public class Movement {
 
   //
   // Fields
   //
   private Robot robot;
-  private String direction;
+  private Direction direction;
   
   //
   // Constructors
   //
-  public Mouvement () { }
+  public Movement() { }
+  
+  //
+  // Methods
+  //
 
+  //
+  // Accessor methods
+  //
   public Robot getRobot() {
     return robot;
   }
@@ -24,27 +31,16 @@ public class Mouvement {
     this.robot = robot;
   }
 
-  public String getDirection() {
+  public Direction getDirection() {
     return direction;
   }
 
-  public void setDirection(String direction) {
+  public void setDirection(Direction direction) {
     this.direction = direction;
-  };
-  
-  //
-  // Methods
-  //
-
-
-  //
-  // Accessor methods
-  //
+  }
 
   //
   // Other methods
   //
-
-  
 
 }

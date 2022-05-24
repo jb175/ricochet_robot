@@ -3,7 +3,7 @@ package com.isep.model;
 /**
  * Class Jeton
  */
-public class Jeton {
+public class Token {
 
   //
   // Fields
@@ -15,7 +15,7 @@ public class Jeton {
   //
   // Constructors
   //
-  public Jeton (String couleur, String forme, Position position) {
+  public Token(String couleur, String forme, Position position) {
     this.couleur = couleur;
     this.forme = forme;
     this.position = position;

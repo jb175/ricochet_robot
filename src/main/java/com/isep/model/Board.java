@@ -1,9 +1,9 @@
 package com.isep.model;
 
 /**
- * Class Plateau
+ * Class Board
  */
-public class Plateau {
+public class Board {
 
   //
   // Fields
@@ -20,12 +20,12 @@ public class Plateau {
   private String[] colors;
   private String[] shapes;
   private Robot[] robots;
-  private Jeton[] jetons;
+  private Token[] tokens;
 
   //
   // Constructors
   //
-  public Plateau (int[] quarterBoardSize, int cellSize, int wallAgainstBorderPerQuarter, int numberOfCornersPerQuarter, String[] colors, String[] shapes) {
+  public Board(int[] quarterBoardSize, int cellSize, int wallAgainstBorderPerQuarter, int numberOfCornersPerQuarter, String[] colors, String[] shapes) {
     this.quarterBoardSize = quarterBoardSize;
     this.cellSize = cellSize;
     walls = null;
@@ -38,13 +38,12 @@ public class Plateau {
     this.colors = colors;
     this.shapes = shapes;
     robots = null;
-    jetons = null;
+    tokens = null;
   }
   
   //
   // Methods
   //
-
 
   //
   // Accessor methods
@@ -121,37 +120,10 @@ public class Plateau {
     this.robots = robots;
   }
 
-  public void setJetons(Jeton[] jetons) {
-    this.jetons = jetons;
+  public void setTokens(Token[] tokens) {
+    this.tokens = tokens;
   }
 
-  public void setQuarterBoardSize(int[] quarterBoardSize) {
-    this.quarterBoardSize = quarterBoardSize;
-  }
-
-  public void setCellSize(int cellSize) {
-    this.cellSize = cellSize;
-  }
-
-  public void setWallAgainstBorderPerQuarter(int wallAgainstBorderPerQuarter) {
-    this.wallAgainstBorderPerQuarter = wallAgainstBorderPerQuarter;
-  }
-
-  public void setNumberOfCornersPerQuarter(int numberOfCornersPerQuarter) {
-    this.numberOfCornersPerQuarter = numberOfCornersPerQuarter;
-  }
-
-  public void setColors(String[] colors) {
-    this.colors = colors;
-  }
-
-  public void setShapes(String[] shapes) {
-    this.shapes = shapes;
-  }
-
-  public Jeton[] getJetons() {
-    return jetons;
-  }
   //
   //
   // Other methods

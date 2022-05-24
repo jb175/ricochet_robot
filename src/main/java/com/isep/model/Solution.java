@@ -11,19 +11,19 @@ public class Solution {
   // Fields
   //
 
-  private ArrayList<Mouvement> mouvements;
+  private ArrayList<Movement> movements;
   
   //
   // Constructors
   //
   public Solution () { }
 
-  public ArrayList<Mouvement> getMouvements() {
-    return mouvements;
+  public ArrayList<Movement> getMouvements() {
+    return movements;
   }
 
-  public void setMouvements(ArrayList<Mouvement> mouvements) {
-    this.mouvements = mouvements;
+  public void setMouvements(ArrayList<Movement> movements) {
+    this.movements = movements;
   };
   
   //
