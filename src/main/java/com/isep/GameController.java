@@ -26,7 +26,7 @@ public class GameController {
     Robot selectedRobot;
     Position[] positions;
 
-    protected static Board plateau = new Board(new int[]{8, 8}, 40, 1, 4, new String[]{"Red", "Green", "Blue", "Yellow"}, new String[]{"Circle", "Star", "Triangle", "Hexagon"});
+    protected static Plateau plateau = new Plateau(new int[]{8, 8}, 40, 1, 4, new String[]{"Red", "Green", "Blue", "Yellow"}, new String[]{"Circle", "Star", "Triangle", "Hexagon"});
 
     @FXML
     private void initialize() throws Exception {
@@ -333,13 +333,13 @@ public class GameController {
             }
         }
 
-        ArrayList<Token>jetonsList = new ArrayList<>();
+        ArrayList<Jeton>jetonsList = new ArrayList<>();
         for (int i=0; i<plateau.getAngles().length; i++) {
             getCell(plateau.getAngles()[i].getColumn(), plateau.getAngles()[i].getRow(), 0).setImage(new Image(getClass().getResourceAsStream("/img/BoardEmpty.png")));
-            jetonsList.add(new Token(plateau.getColors()[i%4], plateau.getShapes()[i/4], new Position(plateau.getAngles()[i].getColumn(), plateau.getAngles()[i].getRow())));
+            jetonsList.add(new Jeton(plateau.getColors()[i%4], plateau.getShapes()[i/4], new Position(plateau.getAngles()[i].getColumn(), plateau.getAngles()[i].getRow())));
             getCell(plateau.getAngles()[i].getColumn(), plateau.getAngles()[i].getRow(), 5).setImage(new Image(getClass().getResourceAsStream("/img/Objective"+plateau.getColors()[i%4]+plateau.getShapes()[i/4]+".png")));
         }
-        plateau.setTokens(jetonsList.toArray(new Token[jetonsList.size()]));
+        plateau.setJetons(jetonsList.toArray(new Jeton[jetonsList.size()]));
 
         ArrayList<Position> positions = new ArrayList<>();
         int overflow = 0;
@@ -395,7 +395,7 @@ public class GameController {
             }
         }
         for (Robot robot : GameController.plateau.getRobots()) {
-            getCell(robot.getPosition().getColumn(), robot.getPosition().getRow(), 6).setImage(new Image(getClass().getResourceAsStream("/img/"+robot.getColor()+"Robot.png")));
+            getCell(robot.getPosition().getColumn(), robot.getPosition().getRow(), 6).setImage(new Image(getClass().getResourceAsStream("/img/"+robot.getCouleur()+"Robot.png")));
         }
     }
 
@@ -436,7 +436,7 @@ public class GameController {
         for (Robot robot : GameController.plateau.getRobots()) {
             if(robot.getPosition().equals(new Position(column, row))) {
                 //on affiche la couleur du robot selectionné
-                System.out.println("Robot "+robot.getColor());
+                System.out.println("Robot "+robot.getCouleur());
                 selectedRobot = robot;
 
                 //on enléve tous les filtres du plateaux
